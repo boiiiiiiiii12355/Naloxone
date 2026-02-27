@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b6631ppy0o6he"]
+[gd_scene format=3 uid="uid://b6631ppy0o6he"]
 
 [ext_resource type="Script" uid="uid://dy1lil83b5rec" path="res://maps/main_menu.gd" id="1_km1yj"]
 [ext_resource type="PackedScene" uid="uid://b7uu2lftx65gd" path="res://maps/map_scenes/main_menu_scene.tscn" id="2_km1yj"]
@@ -130,23 +130,23 @@ _data = {
 &"sp_map_list_show": SubResource("Animation_km1yj")
 }
 
-[node name="main_menu" type="Node3D" node_paths=PackedStringArray("maps_button_container", "animation_player", "main_menu_scene")]
+[node name="main_menu" type="Node3D" unique_id=1581099313 node_paths=PackedStringArray("maps_button_container", "animation_player", "main_menu_scene")]
 script = ExtResource("1_km1yj")
 maps_button_container = NodePath("CanvasLayer/sp_maps_list/ScrollContainer")
 animation_player = NodePath("CanvasLayer/AnimationPlayer")
 main_menu_scene = NodePath("main_menu")
 
-[node name="main_menu" parent="." instance=ExtResource("2_km1yj")]
+[node name="main_menu" parent="." unique_id=578156670 instance=ExtResource("2_km1yj")]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=534522036]
 
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=2000410300]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1154.0
 offset_bottom = 649.0
 
-[node name="Label" type="Label" parent="CanvasLayer/Control"]
+[node name="Label" type="Label" parent="CanvasLayer/Control" unique_id=1789310059]
 layout_mode = 0
 offset_left = 734.0
 offset_top = 354.0
@@ -155,13 +155,13 @@ offset_bottom = 485.0
 text = "Naloxone"
 label_settings = SubResource("LabelSettings_rlf6c")
 
-[node name="buttons" type="Control" parent="CanvasLayer"]
+[node name="buttons" type="Control" parent="CanvasLayer" unique_id=1906357205]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="sp_button" type="Button" parent="CanvasLayer/buttons"]
+[node name="sp_button" type="Button" parent="CanvasLayer/buttons" unique_id=815261338]
 layout_mode = 0
 offset_left = 27.0
 offset_top = 382.0
@@ -171,7 +171,7 @@ text = "single player                         |
                                                
 "
 
-[node name="Label" type="Label" parent="CanvasLayer/buttons/sp_button"]
+[node name="Label" type="Label" parent="CanvasLayer/buttons/sp_button" unique_id=1360897721]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 25.0
@@ -180,19 +180,19 @@ offset_bottom = 65.0
 text = "they might as well be dead..."
 label_settings = SubResource("LabelSettings_bneil")
 
-[node name="sp_maps_list" type="Control" parent="CanvasLayer"]
+[node name="sp_maps_list" type="Control" parent="CanvasLayer" unique_id=1372142579]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -200.0
 offset_bottom = 647.0
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/sp_maps_list"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/sp_maps_list" unique_id=1227412285]
 layout_mode = 0
 offset_right = 195.0
 offset_bottom = 648.0
 color = Color(0, 0, 0, 0.40784314)
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/sp_maps_list"]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/sp_maps_list" unique_id=188524104]
 layout_mode = 0
 offset_right = 197.0
 offset_bottom = 651.0
@@ -200,10 +200,10 @@ draw_focus_border = true
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
-[node name="map_list" type="Control" parent="CanvasLayer/sp_maps_list/ScrollContainer"]
+[node name="map_list" type="Control" parent="CanvasLayer/sp_maps_list/ScrollContainer" unique_id=977781043]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/sp_maps_list/ScrollContainer/map_list"]
+[node name="Label" type="Label" parent="CanvasLayer/sp_maps_list/ScrollContainer/map_list" unique_id=906001186]
 layout_mode = 0
 offset_left = 203.185
 offset_top = -4.0
@@ -213,7 +213,7 @@ rotation = 1.5707964
 text = "the world at its finest."
 label_settings = SubResource("LabelSettings_kshxf")
 
-[node name="back" type="Button" parent="CanvasLayer/sp_maps_list"]
+[node name="back" type="Button" parent="CanvasLayer/sp_maps_list" unique_id=833505474]
 layout_mode = 0
 offset_left = 75.435
 offset_top = 616.0
@@ -221,10 +221,8 @@ offset_right = 173.43488
 offset_bottom = 648.0
 text = "<-- go back"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
-libraries = {
-&"": SubResource("AnimationLibrary_kshxf")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer" unique_id=2058651457]
+libraries/ = SubResource("AnimationLibrary_kshxf")
 
 [connection signal="pressed" from="CanvasLayer/buttons/sp_button" to="." method="_on_sp_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/sp_maps_list/back" to="." method="_on_back_pressed"]

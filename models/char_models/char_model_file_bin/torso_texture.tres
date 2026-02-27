@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bm57jeg5fl6xb"]
+
+[ext_resource type="Texture2D" uid="uid://ckjvgepofdnnf" path="res://models/char_models/gltf_character_files/GR_subject_203_body_texture.png" id="1_oxo4u"]
+
+[resource]
+resource_name = "torso_texture"
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_oxo4u")

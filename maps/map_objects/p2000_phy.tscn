@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bly1cw0xtom6u"]
 
-[ext_resource type="PackedScene" uid="uid://c5b5yy7ua3a7l" path="res://model/object_gltf/P2000.glb" id="1_138c2"]
+[ext_resource type="PackedScene" uid="uid://c5b5yy7ua3a7l" path="res://models/obj_models/object_gltf/P2000.glb" id="1_138c2"]
 [ext_resource type="AudioStream" uid="uid://cd5xx4ei7iese" path="res://sounds/gunshots/gun_shot.wav" id="3_j8x68"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_pceya"]
@@ -24,35 +24,35 @@ fire_rate_timer = NodePath("fire_rate")
 mag_size = 12
 base_damage = 20
 animation_player = NodePath("AnimationPlayer")
-chest_twist_offset = -0.505
+chest_twist_offset = Vector3(0.56, 0.225, 0)
 ejection_area = NodePath("ejection_area")
 equip_timer = NodePath("equip_timer")
+item_name = "p2000"
 pickup_area = NodePath("pickup_area")
 
-[node name="gun_rig" parent="." index="0" unique_id=228519768]
+[node name="gun_rig" parent="." index="0" unique_id=1069440126]
 transform = Transform3D(0.068, 0, 0, 0, 0.068, 0, 0, 0, 0.068, 0, 0, 0)
 
-[node name="Skeleton3D" parent="gun_rig" index="0" unique_id=293251928]
+[node name="Skeleton3D" parent="gun_rig" index="0" unique_id=1957751615]
 bones/0/position = Vector3(0.00018059462, -0.00016433, 0.036912233)
-bones/1/position = Vector3(-2.3097868, -5.4566736, 3.175917)
-bones/1/rotation = Quaternion(-0.10254205, -0.20324728, -0.1653204, 0.95960665)
+bones/1/position = Vector3(7.7013276e-08, -0.0027146363, 0.3230385)
 bones/2/position = Vector3(-0.15201798, 1.2581453, -0.09536795)
-bones/3/rotation = Quaternion(0.99384123, -0.017590871, -0.0034611314, 0.10935372)
-bones/4/rotation = Quaternion(0.25796872, 4.6850437e-07, 7.612797e-08, 0.9661533)
+bones/3/rotation = Quaternion(0.99384123, -0.017590879, -0.0034611258, 0.10935372)
+bones/4/rotation = Quaternion(0.2579687, 4.6283137e-07, 5.3419704e-08, 0.96615326)
 
-[node name="Bone_001" parent="gun_rig/Skeleton3D" index="0" unique_id=2001404132]
-transform = Transform3D(0.8627193, 0.35896784, -0.35617045, -0.27560228, 0.9243085, 0.26400188, 0.4239796, -0.1295981, 0.8963513, -2.309607, -5.456838, 3.2128286)
+[node name="Bone_001" parent="gun_rig/Skeleton3D" index="0" unique_id=200044925]
+transform = Transform3D(1, 0, -2.3841858e-07, 6.6682816e-08, 0.9600908, 0.279688, 2.2890352e-07, -0.27968797, 0.96009094, 0.00018059462, -0.0028789663, 0.35995072)
 
-[node name="Bone_002" parent="gun_rig/Skeleton3D" index="1" unique_id=993456630]
+[node name="Bone_002" parent="gun_rig/Skeleton3D" index="1" unique_id=1144810698]
 transform = Transform3D(1, 5.9566077e-09, -2.3841855e-07, 2.3833724e-07, 0.011160552, 0.99993765, 8.617121e-09, -0.99993765, 0.011160552, -0.15183735, 1.2579811, -0.058455758)
 
-[node name="Bone_003" parent="gun_rig/Skeleton3D" index="2" unique_id=471037133]
-transform = Transform3D(0.99935716, -0.034208138, -0.010726634, -0.03572204, -0.9754646, -0.21723835, -0.0030321374, 0.2174822, -0.9760582, 0.1525889, 0.8745132, -0.13155767)
+[node name="Bone_003" parent="gun_rig/Skeleton3D" index="2" unique_id=1377700001]
+transform = Transform3D(0.99935716, -0.034208152, -0.010726625, -0.035722055, -0.9754646, -0.21723835, -0.0030321246, 0.2174822, -0.9760582, 0.1525889, 0.8745132, -0.13155767)
 
-[node name="Bone_004" parent="gun_rig/Skeleton3D" index="3" unique_id=1069104778]
-transform = Transform3D(1, -2.4229273e-08, 7.3788516e-07, 3.888215e-07, 0.8669042, -0.49847463, -6.275981e-07, 0.4984746, 0.86690426, -0.26450828, 0.94002306, 0.52700305)
+[node name="Bone_004" parent="gun_rig/Skeleton3D" index="3" unique_id=837859157]
+transform = Transform3D(1, 1.6723156e-08, 7.152072e-07, 3.4201526e-07, 0.86690426, -0.4984746, -6.2835227e-07, 0.49847457, 0.8669043, -0.26450828, 0.94002306, 0.52700305)
 
-[node name="Bone" parent="gun_rig/Skeleton3D" index="4" unique_id=807492373]
+[node name="Bone" parent="gun_rig/Skeleton3D" index="4" unique_id=135273377]
 transform = Transform3D(1, 0, -2.3841858e-07, 0, 1, 0, 2.3841858e-07, 0, 1, 0.00018059462, -0.00016433, 0.036912233)
 
 [node name="muzzle_flash" type="OmniLight3D" parent="." index="2" unique_id=1011751023]

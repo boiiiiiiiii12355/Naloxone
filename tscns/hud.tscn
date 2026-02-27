@@ -1,6 +1,45 @@
-[gd_scene load_steps=4 format=3 uid="uid://dppu81f8q0do2"]
+[gd_scene format=3 uid="uid://dppu81f8q0do2"]
 
 [ext_resource type="Script" uid="uid://ceqy010g5orms" path="res://Scripts/ui_stuff/hud.gd" id="1_drfnf"]
+[ext_resource type="Shader" uid="uid://c10f0tsmsdpn2" path="res://shaders/vignette_chroma.gdshader" id="2_7lmbg"]
+[ext_resource type="Shader" uid="uid://c1scllotbi1hu" path="res://shaders/camcorder.gdshader" id="2_hqhin"]
+[ext_resource type="Shader" uid="uid://0axigunfvjov" path="res://shaders/chroma.gdshader" id="3_hqhin"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1pnm5"]
+shader = ExtResource("2_hqhin")
+shader_parameter/color_bleed_enabled = true
+shader_parameter/chromatic_abberation_enabled = true
+shader_parameter/film_grain_enabled = true
+shader_parameter/sharpness_enabled = true
+shader_parameter/chromatic_abberation_seperation = 0.016
+shader_parameter/chromatic_abberation_intensity = 1.5
+shader_parameter/chromatic_abberation_blur_strength = 1.0
+shader_parameter/film_grain_intensity = 1.0
+shader_parameter/grain_size = 2.0
+shader_parameter/darkness_clamp = 0.22999999485904
+shader_parameter/sharpness_size = 1.0
+shader_parameter/sharpness_intensity = 0.7
+shader_parameter/color_bleed_seperation = 0.02
+shader_parameter/color_bleed_intensity = 0.2
+shader_parameter/anti_bleed_intensity = 1.8
+shader_parameter/color_bleed_blur_strength = 1.0
+shader_parameter/color_bleed_quality = 5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hqhin"]
+shader = ExtResource("2_7lmbg")
+shader_parameter/radius = 0.27200001292
+shader_parameter/softness = 0.97200004617
+shader_parameter/intensity = 0.6970000331075
+shader_parameter/contrast = 4.0
+shader_parameter/vignette_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_224jd"]
+shader = ExtResource("2_7lmbg")
+shader_parameter/radius = 1.0
+shader_parameter/softness = 1.0
+shader_parameter/intensity = 0.77200003667
+shader_parameter/contrast = 4.0
+shader_parameter/vignette_color = Color(1, 0, 0, 1)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_drfnf"]
 color = Color(1, 0, 0, 1)
@@ -13,7 +52,13 @@ corner_detail = 1
 shadow_color = Color(1, 0, 0, 0.49411765)
 shadow_size = 13
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("slot_1", "slot_2", "slot_3", "selector", "hp_bar")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qtpdn"]
+shader = ExtResource("3_hqhin")
+shader_parameter/chaos = 0.0
+shader_parameter/radius = 1.0
+shader_parameter/attenuation = 1.9470000449825
+
+[node name="HUD" type="Control" unique_id=1151845633 node_paths=PackedStringArray("slot_1", "slot_2", "slot_3", "selector", "hp_bar", "blood_vignette_rect")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,15 +71,36 @@ slot_2 = NodePath("inventory/Slot 2")
 slot_3 = NodePath("inventory/Slot 3")
 selector = NodePath("inventory/selector")
 hp_bar = NodePath("status/hp_bar")
+blood_vignette_rect = NodePath("blood_vignette")
 
-[node name="inventory" type="Control" parent="."]
+[node name="camcorder" type="ColorRect" parent="." unique_id=1364386023]
+material = SubResource("ShaderMaterial_1pnm5")
+layout_mode = 0
+offset_right = 1153.0
+offset_bottom = 646.0
+
+[node name="vignette" type="ColorRect" parent="." unique_id=1818017259]
+material = SubResource("ShaderMaterial_hqhin")
+layout_mode = 0
+offset_left = -7.0
+offset_top = -6.0
+offset_right = 1159.0
+offset_bottom = 655.0
+
+[node name="blood_vignette" type="ColorRect" parent="." unique_id=78966225]
+material = SubResource("ShaderMaterial_224jd")
+layout_mode = 0
+offset_right = 1155.0
+offset_bottom = 651.0
+
+[node name="inventory" type="Control" parent="." unique_id=627919267]
 anchors_preset = 0
 offset_left = -2.0
 offset_top = 7.0
 offset_right = 38.0
 offset_bottom = 47.0
 
-[node name="background" type="ColorRect" parent="inventory"]
+[node name="background" type="ColorRect" parent="inventory" unique_id=720533348]
 layout_mode = 0
 offset_left = 745.0
 offset_top = 539.0
@@ -42,7 +108,7 @@ offset_right = 1153.0
 offset_bottom = 640.0
 color = Color(0.29586652, 0.29586652, 0.29586634, 0.21568628)
 
-[node name="selector" type="ColorRect" parent="inventory"]
+[node name="selector" type="ColorRect" parent="inventory" unique_id=1835693200]
 layout_mode = 0
 offset_left = 761.0
 offset_top = 547.0
@@ -50,7 +116,7 @@ offset_right = 1131.0
 offset_bottom = 572.0
 color = Color(0, 0, 0, 0.5058824)
 
-[node name="Slot 3" type="RichTextLabel" parent="inventory"]
+[node name="Slot 3" type="RichTextLabel" parent="inventory" unique_id=2016064702]
 layout_mode = 0
 offset_left = 765.0
 offset_top = 599.0
@@ -58,7 +124,7 @@ offset_right = 1102.0
 offset_bottom = 625.0
 text = "3"
 
-[node name="Slot 2" type="RichTextLabel" parent="inventory"]
+[node name="Slot 2" type="RichTextLabel" parent="inventory" unique_id=186158875]
 layout_mode = 0
 offset_left = 765.0
 offset_top = 573.0
@@ -66,7 +132,7 @@ offset_right = 1102.0
 offset_bottom = 599.0
 text = "2"
 
-[node name="Slot 1" type="RichTextLabel" parent="inventory"]
+[node name="Slot 1" type="RichTextLabel" parent="inventory" unique_id=1535983781]
 layout_mode = 0
 offset_left = 765.0
 offset_top = 547.0
@@ -74,12 +140,12 @@ offset_right = 1102.0
 offset_bottom = 573.0
 text = "1"
 
-[node name="status" type="Control" parent="."]
+[node name="status" type="Control" parent="." unique_id=676258757]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="hp_bar" type="ProgressBar" parent="status"]
+[node name="hp_bar" type="ProgressBar" parent="status" unique_id=1523102949]
 layout_mode = 0
 offset_left = 23.0
 offset_top = 518.0
@@ -92,7 +158,16 @@ rounded = true
 fill_mode = 3
 show_percentage = false
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="chroma" type="ColorRect" parent="." unique_id=1346445086]
+visible = false
+material = SubResource("ShaderMaterial_qtpdn")
+layout_mode = 0
+offset_left = -198.0
+offset_top = -84.0
+offset_right = 1332.4883
+offset_bottom = 760.0
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1039712457]
 layout_mode = 0
 offset_left = 576.0
 offset_top = 324.0

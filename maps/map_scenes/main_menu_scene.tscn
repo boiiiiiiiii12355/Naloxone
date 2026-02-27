@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://b5ohlp3pakpev" path="res://maps/map_gltf/main_menu.glb" id="1_4dr35"]
 [ext_resource type="Script" uid="uid://diyolna02rxe3" path="res://maps/main_menu_effects.gd" id="2_5wmgd"]
 [ext_resource type="PackedScene" uid="uid://bllbjlr3e1iyr" path="res://models/char_models/player_ragdoll.tscn" id="3_iej8s"]
+[ext_resource type="Shader" uid="uid://bndm18pc8b78s" path="res://shaders/VHS.gdshader" id="3_qexiu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4dr35"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -25,6 +26,16 @@ volumetric_fog_enabled = true
 volumetric_fog_density = 0.034
 volumetric_fog_albedo = Color(0.6027341, 0.6027341, 0.6027341, 1)
 
+[sub_resource type="QuadMesh" id="QuadMesh_bbv3t"]
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g17nx"]
+render_priority = 0
+shader = ExtResource("3_qexiu")
+shader_parameter/tape_wave_amount = 0.003
+shader_parameter/tape_noise_amount = 0.031
+shader_parameter/color_bleed_amount = 0.008
+
 [node name="main_menu_scene" unique_id=816939806 node_paths=PackedStringArray("subject_205_anim", "camera") instance=ExtResource("1_4dr35")]
 script = ExtResource("2_5wmgd")
 subject_205_anim = NodePath("AnimationPlayer")
@@ -39,8 +50,25 @@ light_energy = 3.0
 [node name="Spot" parent="." index="3" unique_id=1440007520]
 light_energy = 3.0
 
+[node name="Skeleton3D" parent="rig" parent_id_path=PackedInt32Array(1080678624) index="0" unique_id=1751026614]
+bones/3/rotation = Quaternion(-0.05146298, -1.1905136e-07, -1.8404604e-08, 0.998675)
+bones/4/rotation = Quaternion(0.10945711, 1.8317721e-14, 2.609661e-08, 0.99399155)
+bones/31/rotation = Quaternion(0.0012565359, 0.03831346, 5.3559004e-05, 0.999265)
+bones/33/rotation = Quaternion(0.08157657, -0.014157927, 0.009818816, 0.9965182)
+bones/36/rotation = Quaternion(-0.08842964, -0.029528221, -0.002826718, 0.9956407)
+bones/51/rotation = Quaternion(0.021241365, -0.019082675, -0.022559207, 0.99933773)
+bones/56/rotation = Quaternion(0.0012565476, -0.038313452, -5.3557833e-05, 0.999265)
+bones/58/rotation = Quaternion(0.081576474, 0.014157925, -0.009818816, 0.9965182)
+bones/74/rotation = Quaternion(0.027115433, 8.4628256e-11, 9.584591e-09, 0.99963236)
+bones/79/rotation = Quaternion(0.027115433, 8.456543e-11, -3.3450618e-09, 0.99963236)
+
 [node name="Area_001" parent="." index="6" unique_id=752992500]
 light_energy = 3.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera" parent_id_path=PackedInt32Array(1883115356) index="0" unique_id=1553397250]
+transform = Transform3D(1.0000004, 1.8626451e-09, 0, 0, 1.0000004, 0, 4.4703484e-08, -1.4901161e-08, 1, 0.016432285, -0.02555716, -0.11738014)
+mesh = SubResource("QuadMesh_bbv3t")
+surface_material_override/0 = SubResource("ShaderMaterial_g17nx")
 
 [node name="player_ragdoll" parent="." index="8" unique_id=989224547 instance=ExtResource("3_iej8s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9226456, 0.45588076, 6.922967)

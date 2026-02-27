@@ -38,7 +38,7 @@ size = Vector3(0.7, 1.655, 0.7)
 [sub_resource type="BoxShape3D" id="BoxShape3D_4pade"]
 size = Vector3(0.7, 0.4, 0.7)
 
-[node name="player" type="CharacterBody3D" unique_id=1277926118 node_paths=PackedStringArray("mySkin", "myShape", "spring", "camera_spine", "hud", "player_body", "player_cam", "chest_point_target", "view", "inventory", "interact_ray", "pickup_hold_area", "preselect_timer")]
+[node name="player" type="CharacterBody3D" unique_id=1277926118 node_paths=PackedStringArray("mySkin", "myShape", "spring", "camera_spine", "hud", "player_body", "player_cam", "chest_point_target", "hp_system", "view", "inventory", "interact_ray", "pickup_hold_area", "preselect_timer")]
 collision_layer = 2
 script = ExtResource("1_a7j60")
 mySkin = NodePath("MeshInstance3D")
@@ -49,6 +49,7 @@ hud = NodePath("HUD")
 player_body = NodePath("GR_subject_203")
 player_cam = NodePath("TwistPivot/view")
 chest_point_target = NodePath("TwistPivot/view/point_target")
+hp_system = NodePath("health")
 stats = ExtResource("2_graem")
 view = NodePath("TwistPivot/view")
 inventory = NodePath("Inventory")
@@ -58,11 +59,13 @@ preselect_timer = NodePath("preselect_timer")
 
 [node name="GR_subject_203" parent="." unique_id=1369285068 node_paths=PackedStringArray("camera_spine", "gun_ray") instance=ExtResource("4_k0k4f")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+rotation_edit_mode = 0
 camera_spine = NodePath("../TwistPivot")
 gun_ray = NodePath("../TwistPivot/view/gun_point")
 
 [node name="player_ragdoll" parent="." unique_id=989224547 instance=ExtResource("4_hru13")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=822870378]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -107,11 +110,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.9454944)
 rotation_edit_mode = 1
 
 [node name="view" type="Camera3D" parent="TwistPivot" unique_id=1795726355]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06100726, -0.06913549)
-cull_mask = 1048571
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.028270006, -0.05330111)
 current = true
-fov = 70.0
-near = 0.001
+near = 0.01
 script = ExtResource("6_hru13")
 
 [node name="interact_ray" type="RayCast3D" parent="TwistPivot/view" unique_id=995186137]

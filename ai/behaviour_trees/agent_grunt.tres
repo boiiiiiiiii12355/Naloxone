@@ -38,7 +38,7 @@ script = ExtResource("4_hjh51")
 
 [sub_resource type="BTDelay" id="BTDelay_hjh51"]
 children = [SubResource("BTAction_6ap63")]
-seconds = 0.07
+seconds = 0.1
 
 [sub_resource type="BTRepeatUntilSuccess" id="BTRepeatUntilSuccess_hjh51"]
 children = [SubResource("BTDelay_hjh51")]

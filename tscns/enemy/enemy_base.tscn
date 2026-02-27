@@ -53,7 +53,7 @@ shape = SubResource("CapsuleShape3D_ma7yh")
 [node name="test_model" parent="." unique_id=1371570031 instance=ExtResource("1_ghyrv")]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="test_model" unique_id=364783273]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19178237, 1.2164296, 0.37632883)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0016806126, 1.2164296, 0.37632883)
 size = Vector3(0.025, 0.095, 0.495)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="test_model/CSGBox3D" unique_id=1760038003]
@@ -63,7 +63,8 @@ size = Vector3(0.05, 0.05, 0.205)
 [node name="RayCast3D" type="RayCast3D" parent="test_model/CSGBox3D" unique_id=653307533]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.25278306)
 target_position = Vector3(0, 0, 100)
-collision_mask = 3
+collision_mask = 33
+collide_with_areas = true
 
 [node name="sight_line" type="RayCast3D" parent="." unique_id=1229142707]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.536185, 0)

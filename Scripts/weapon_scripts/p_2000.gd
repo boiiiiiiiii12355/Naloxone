@@ -9,7 +9,7 @@ class_name gun_item_base
 @export var mag_size : int
 @export var base_damage : int
 @export var animation_player : AnimationPlayer
-@export var chest_twist_offset : float 
+@export var chest_twist_offset : Vector3 
 var ammunition = mag_size
 
 

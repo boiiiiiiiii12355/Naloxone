@@ -12,16 +12,20 @@ class_name playermodel
 @export var chest_look_at_modi : LookAtModifier3D
 @export var upper_chest_look_at_modi : LookAtModifier3D
 @export var gun_point : Node3D
+@export var upper_chest_tracker : BoneAttachment3D
+@export var upper_chest_orgin : Node3D
+
 var chest_angle : float = 0.0
 var rtc_blend_amount = 0.0
 var kick_blend_amount = 0.0
 var arms_action
 var stand_to_crouch = "parameters/stand_to_crouch/blend_amount"
 var arms_action_blend = "parameters/arms_action_blend/blend_amount"
+var interact_blend = "parameters/interact_blend/blend_amount"
 var arms_action_timeseek = "parameters/arms_action_timeseek/seek_request"
 var kick_oneshot = "parameters/kick_oneshot/request"
 var kick_timeseek = "parameters/kick_timeseek/seek_request"
-var interact_oneshot = "parameters/interact_oneshot/request"
+
 
 #these are variables for physical slot nodes
 @export var equip_node : Node3D
@@ -48,12 +52,9 @@ func equipstatus_check(checkoffset:bool):
 		return offset
 		
 var recoil_pos : Vector3 = Vector3.ZERO
-var upperchest_x_offset = .3
+var upperchest_offset :Vector3 = Vector3(0.3, 0, 0)
 func chest_point_at(r_position : Vector3):
-	if equipstatus_check(false):
-		upperchest_x_offset = equipstatus_check(true)
 	var end_position = r_position + recoil_pos 
-	upper_chest_look_at_modi.origin_offset.x = lerp(upper_chest_look_at_modi.origin_offset.x, (float(equipstatus_check(false)) * upperchest_x_offset), 0.1)
 	camera_point.global_position = lerp(camera_point.global_position, end_position, 0.5)
 	camera_spine.global_position = head_tracker.global_position
 	recoil_process()
@@ -116,15 +117,14 @@ func check_kick():
 		await animation_tree.animation_finished
 		kicking = false
 
-var interact_anim_played : bool = false
+var interact_blend_var = 1.0
 func interact_detect():
-	if !interact_anim_played:
-		animation_tree.set(interact_oneshot, 1)
-		interact_anim_played = true
+	interact_blend_var = lerp(interact_blend_var, 1.0, 0.1)
+	animation_tree.set(interact_blend, interact_blend_var)
 		
 func interact_none():
-	animation_tree.set(interact_oneshot, 3)
-	interact_anim_played = false
+	interact_blend_var = lerp(interact_blend_var, 0.0, 0.1)
+	animation_tree.set(interact_blend, interact_blend_var)
 	
 var local_vel_mag : Vector2 = Vector2.ZERO
 func walk_anim_update(velocity_magnitude : Vector2):

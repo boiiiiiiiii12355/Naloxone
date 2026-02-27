@@ -40,7 +40,7 @@ func _physics_process(delta: float) -> void:
 		
 func phy_pro(delta):
 	camera_dist = clamp(4+(sqrt(stats.vel.length())/1.5),8, 100)
-	view.fov = clamp(70+sqrt(stats.vel.length()*7),90, 180)
+	#view.fov = clamp(70+sqrt(stats.vel.length()*7),90, 180)
 	preselect_check()
 		
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
@@ -163,3 +163,7 @@ func get_delta_time() -> float:
 func pickup(object : Object):
 	print("picked up  " + str(object))
 	inventory.pickup(object, (selected_inventory_slot - 1))
+
+@export var hp_system : player_hp_management
+func take_damage(amount : int):
+	hp_system.hp -= amount

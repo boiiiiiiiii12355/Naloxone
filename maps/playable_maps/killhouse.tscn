@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dtcqajnjlqou5" path="res://maps/map_objects/p7_quiver_phy.tscn" id="4_mwhld"]
 [ext_resource type="PackedScene" uid="uid://b40i5v5ewe75i" path="res://maps/props/box_cover.tscn" id="7_48ds0"]
 [ext_resource type="PackedScene" uid="uid://bly1cw0xtom6u" path="res://maps/map_objects/p2000_phy.tscn" id="7_jsh2l"]
+[ext_resource type="PackedScene" uid="uid://cglma2n2s2ajg" path="res://maps/map_objects/fs_12.tscn" id="8_5b36c"]
 [ext_resource type="PackedScene" uid="uid://1yxyrfjflrro" path="res://tscns/enemy/enemy_base.tscn" id="8_48ds0"]
 
 [sub_resource type="Environment" id="Environment_553v6"]
@@ -105,10 +106,17 @@ spot_angle = 31.361969
 [node name="physics_object" type="Node3D" parent="killhouse" unique_id=2050902388]
 
 [node name="P2000" parent="killhouse/physics_object" unique_id=1251320840 instance=ExtResource("7_jsh2l")]
-transform = Transform3D(0.009866471, -0.77621204, -0.6303945, 0.99988294, 0.00028644502, 0.015296668, -0.011692882, -0.6304715, 0.7761243, 1.4107519, 1.0579596, 21.126226)
+transform = Transform3D(0.009866471, -0.77621204, -0.6303945, 0.99988294, 0.00028644502, 0.015296668, -0.011692882, -0.6304715, 0.7761243, 2.0825086, 1.0579596, 21.465277)
+chest_twist_offset = Vector3(0, 0, 0)
 
 [node name="p7_quiver2" parent="killhouse/physics_object" unique_id=1290369115 instance=ExtResource("4_mwhld")]
-transform = Transform3D(-0.068692535, 0.8738878, 0.4812498, -0.997583, -0.06522651, -0.023949753, 0.010460958, -0.48173183, 0.8762561, 1.3056529, 1.0829048, 20.767923)
+transform = Transform3D(-0.068692535, 0.8738878, 0.4812498, -0.997583, -0.06522651, -0.023949753, 0.010460958, -0.48173183, 0.8762561, 1.9640466, 1.0829048, 20.88116)
+chest_twist_offset = Vector3(0, 0, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="killhouse/physics_object" unique_id=168442078]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9160856, 0.45117092, 21.049963)
+use_collision = true
+size = Vector3(1, 1.1113281, 2.524353)
 
 [node name="entities" type="Node3D" parent="killhouse" unique_id=888714139]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.741169, 0.3078009, 16.521431)
@@ -135,3 +143,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.045044, -0.08296776, 18.0
 
 [node name="box_cover5" parent="killhouse/props" unique_id=2023136916 instance=ExtResource("7_48ds0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8440375, -0.08296776, 16.629698)
+
+[node name="fs_12" parent="killhouse" unique_id=178344514 instance=ExtResource("8_5b36c")]
+transform = Transform3D(0.11852477, -0.8216332, 0.5575577, 0.9911785, 0.13143645, -0.017014634, -0.059303623, 0.5546559, 0.8299636, 1.705043, 1.044175, 21.05437)

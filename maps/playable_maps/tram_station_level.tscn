@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ce7skwe0nlajq" path="res://maps/map_objects/flashlight.tscn" id="5_3eqgb"]
 [ext_resource type="PackedScene" uid="uid://dtcqajnjlqou5" path="res://maps/map_objects/p7_quiver_phy.tscn" id="6_uphtb"]
 [ext_resource type="PackedScene" uid="uid://bg0rv43fg4qdr" path="res://maps/map_objects/hurt_area.tscn" id="7_84bnf"]
+[ext_resource type="PackedScene" uid="uid://cglma2n2s2ajg" path="res://maps/map_objects/fs_12.tscn" id="7_ttvm0"]
 [ext_resource type="PackedScene" uid="uid://bh3xk8hxufios" path="res://maps/map_objects/door_wood.tscn" id="10_hc6mv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2d02k"]
@@ -40,7 +41,7 @@ player = NodePath("player")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1701510486]
 environment = SubResource("Environment_uphtb")
 
-[node name="player" parent="." unique_id=1656397315 instance=ExtResource("2_4hwk0")]
+[node name="player" parent="." unique_id=1277926118 instance=ExtResource("2_4hwk0")]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -45.26989, -0.5100522, -14.535689)
 
 [node name="tram_station" parent="." unique_id=779237370 instance=ExtResource("1_gfy6y")]
@@ -51,16 +52,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00018501282, 0.83493423, 0.
 [node name="objects" type="Node3D" parent="tram_station" unique_id=991218888]
 
 [node name="p2000" parent="tram_station/objects" unique_id=1277710635 instance=ExtResource("4_2d02k")]
-transform = Transform3D(0.99861765, -0.03412834, -0.03997596, 0.05256258, 0.64839125, 0.75949067, 6.956708e-09, -0.76054204, 0.6492888, -46.20413, -0.6965674, -16.643097)
+transform = Transform3D(-0.13063994, -0.97841126, 0.16014013, 0.9904162, -0.13609466, -0.02353261, 0.044818886, 0.1555312, 0.9868138, -43.44008, -0.5640179, -17.38248)
 
 [node name="flashlight" parent="tram_station/objects" unique_id=1282861024 instance=ExtResource("5_3eqgb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.809464, 0.19193125, -18.342552)
+transform = Transform3D(-0.37211323, 0, -0.9281874, 0, 1, 0, 0.9281874, 0, -0.37211323, -42.235756, -0.57692915, -17.381699)
 
 [node name="p7_quiver" parent="tram_station/objects" unique_id=351791850 instance=ExtResource("6_uphtb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.67299, -1.1615413, -16.67894)
+transform = Transform3D(-0.23019779, -0.96849275, -0.09502869, 0.3283627, 0.014620981, -0.9444384, 0.9160713, -0.24861158, 0.3146513, -43.125885, -0.39859188, -17.573101)
+
+[node name="fs_12" parent="tram_station/objects" unique_id=178344514 instance=ExtResource("7_ttvm0")]
+transform = Transform3D(0.16884993, -0.98545593, -0.019142397, -0.19026381, -0.051643692, 0.9803741, -0.96710414, -0.1618937, -0.19621655, -43.515984, -1.4525776, -16.859844)
+base_damage = 25
 
 [node name="hurt_area" parent="tram_station/objects" unique_id=1694811592 instance=ExtResource("7_84bnf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.115532, -1.5095277, -15.328069)
+
+[node name="table" type="CSGBox3D" parent="tram_station/objects" unique_id=485685396]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.773193, -1.0672635, -17.35128)
+use_collision = true
+size = Vector3(2.2235107, 0.94021606, 0.6690674)
 
 [node name="entities" type="Node3D" parent="tram_station" unique_id=1649373229]
 

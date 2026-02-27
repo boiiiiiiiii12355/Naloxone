@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://0knrltjgwa13"]
+
+[ext_resource type="Texture2D" uid="uid://budi2w0e7aq05" path="res://models/char_models/gltf_character_files/GR_subject_203_arms_texture.png" id="1_n2p6x"]
+
+[resource]
+resource_name = "arms"
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_n2p6x")

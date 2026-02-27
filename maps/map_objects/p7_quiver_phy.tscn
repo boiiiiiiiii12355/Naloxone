@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dtcqajnjlqou5"]
 
-[ext_resource type="PackedScene" uid="uid://b0a0smwc4mwa" path="res://model/object_gltf/p7_quiver.glb" id="2_pohe6"]
+[ext_resource type="PackedScene" uid="uid://b0a0smwc4mwa" path="res://models/obj_models/object_gltf/p7_quiver.glb" id="2_pohe6"]
 [ext_resource type="AudioStream" uid="uid://cd5xx4ei7iese" path="res://sounds/gunshots/gun_shot.wav" id="3_egya0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rrpo2"]
@@ -20,32 +20,33 @@ fire_rate_timer = NodePath("fire_rate")
 mag_size = 32
 base_damage = 25
 animation_player = NodePath("AnimationPlayer")
-chest_twist_offset = 0.3
+chest_twist_offset = Vector3(-0.245, 0.2, 0)
 ejection_area = NodePath("ejection_area")
 equip_timer = NodePath("equip_timer")
 item_name = "P7-quiver"
 pickup_area = NodePath("pickup_area")
+equip_position = Vector3(0, 0, -0.009)
 
-[node name="Skeleton3D" parent="p7_quiver" parent_id_path=PackedInt32Array(35957717) index="0" unique_id=35305991]
+[node name="Skeleton3D" parent="p7_quiver" parent_id_path=PackedInt32Array(183640835) index="0" unique_id=659820567]
 bones/1/position = Vector3(-0.2861197, 1.2156099, -0.98540294)
 bones/2/position = Vector3(0.26878232, 1.0634984, 1.2634128)
 bones/3/rotation = Quaternion(0.9999044, 6.2166344e-15, 2.3839583e-07, -0.013827384)
 bones/5/position = Vector3(0.009663077, 0.5277725, 0.8441438)
 bones/5/rotation = Quaternion(0.9943199, 4.584204e-09, 2.3412154e-07, -0.106432654)
 
-[node name="charging_handle_2" parent="p7_quiver/Skeleton3D" index="0" unique_id=2110444763]
+[node name="charging_handle_2" parent="p7_quiver/Skeleton3D" index="0" unique_id=876111751]
 transform = Transform3D(1, 1.3104255e-09, 4.973799e-14, 9.208634e-12, -0.0070683956, 0.999975, 1.3103829e-09, -0.999975, -0.0070683956, -0.28611994, 1.2156099, -0.9854029)
 
-[node name="ejection_port" parent="p7_quiver/Skeleton3D" index="1" unique_id=1680127396]
+[node name="ejection_port" parent="p7_quiver/Skeleton3D" index="1" unique_id=1422157899]
 transform = Transform3D(1, 1.3105108e-09, 2.1316282e-14, 9.251266e-12, -0.0070683956, 0.999975, 1.3104966e-09, -0.999975, -0.0070683956, 0.26878262, 1.0634984, 1.2634127)
 
-[node name="trigger_2" parent="p7_quiver/Skeleton3D" index="2" unique_id=671141728]
+[node name="trigger_2" parent="p7_quiver/Skeleton3D" index="2" unique_id=101157642]
 transform = Transform3D(1, 1.3322676e-14, 2.384187e-07, -6.592769e-09, -0.99961746, 0.02765213, 2.3832749e-07, -0.027652122, -0.9996177, 0, 0.6852689, -0.57759845)
 
-[node name="mag" parent="p7_quiver/Skeleton3D" index="4" unique_id=1658337083]
+[node name="mag" parent="p7_quiver/Skeleton3D" index="4" unique_id=1154573204]
 transform = Transform3D(1, 8.489913e-09, 2.3159113e-07, -4.0720025e-08, -0.97734416, 0.21165669, 2.2814069e-07, -0.21165621, -0.97734636, 0.009663278, 0.5277725, 0.8441438)
 
-[node name="AnimationPlayer" parent="." index="1" unique_id=1317897004]
+[node name="AnimationPlayer" parent="." index="1" unique_id=1336495427]
 deterministic = true
 speed_scale = 1.067
 

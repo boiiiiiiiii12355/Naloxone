@@ -118,7 +118,11 @@ func test_fire():
 		var colider = gun_ray.get_collider()
 		var colide_pos = gun_ray.get_collision_point()
 		DrawLine3d.DrawLine(gun_ray.global_position, gun_ray.get_collision_point(), Color.YELLOW, 0.01)
-	
+		print(colider)
+		if colider.is_in_group("player_hitbox"):
+			var player_tar : Player = colider.owner
+			player_tar.take_damage(10)
+			
 func target_in_range():
 	pass
 
