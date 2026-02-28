@@ -2,14 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pao3yxtihktp"
+uid="uid://bg62h4kk7ld1q"
 path.s3tc="res://.godot/imported/GR_subject_203_suspender_texture.png-150d952b3c3c449fcfea499d525df241.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "7fefc63d0f2dc428c2cca676eb19c778"
 }
 
 [deps]

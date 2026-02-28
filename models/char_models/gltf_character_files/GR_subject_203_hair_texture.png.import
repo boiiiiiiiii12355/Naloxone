@@ -2,14 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btjlhckviumcj"
+uid="uid://c1oq4ywquldhm"
 path.s3tc="res://.godot/imported/GR_subject_203_hair_texture.png-7c948338f472fbe49d94c611f87b4482.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "be37f00ad62c58d30f71f32dc485bf7c"
 }
 
 [deps]

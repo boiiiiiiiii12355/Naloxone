@@ -2,14 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://budi2w0e7aq05"
+uid="uid://obo3aoooksrk"
 path.s3tc="res://.godot/imported/GR_subject_203_arms_texture.png-0af14d612c540688a0e7728ac7817fb7.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "d15708231ab9ac57a51c962621c253de"
 }
 
 [deps]

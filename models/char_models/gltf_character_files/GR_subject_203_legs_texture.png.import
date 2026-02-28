@@ -2,14 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bp71n3aj26e7f"
+uid="uid://ccyrnpwhnp6sh"
 path.s3tc="res://.godot/imported/GR_subject_203_legs_texture.png-c04f877f1e3462d16caef088ab149afe.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "553c27c8460bea0a2bb26d7fd225bba8"
 }
 
 [deps]
