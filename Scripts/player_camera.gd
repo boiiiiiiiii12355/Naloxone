@@ -35,8 +35,9 @@ var headbob_frequency = 2.5
 var headbob_amplitude = 0.04
 func camera_bob(headbob_time):
 	var headbob_position = Vector3.ZERO
-	headbob_position.y = sin(headbob_time * headbob_frequency) * headbob_amplitude
-	headbob_position.x = cos(headbob_time * headbob_frequency / 2) * headbob_amplitude
+	#headbob_position.y = sin(headbob_time * headbob_frequency) * headbob_amplitude
+	#headbob_position.x = cos(headbob_time * headbob_frequency / 2) * headbob_amplitude
+	headbob_position = Vector3.ZERO
 	return headbob_position
 	
 @export var cam_tilt_init = 10.0
@@ -51,3 +52,6 @@ func movement_tilt():
 			return 0.0
 	else:
 		return 0.0
+
+func dialogue_cam():
+	pass

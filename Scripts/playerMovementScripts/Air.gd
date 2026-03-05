@@ -1,7 +1,7 @@
 # Air.gd
 extends PlayerState
 
-@export var player_model : Node3D
+@export var player_model : playermodel
 
 # If we get a message asking us to jump, we jump.
 func enter(msg := {}) -> void:
@@ -13,11 +13,12 @@ func enter(msg := {}) -> void:
 
 func physics_update(delta: float) -> void:
 	AirMove(delta)
-	
+	player_model.falling()
 
 	
 
 	if stats.on_floor:# && abs(player.velocity.y)<15:
+		player_model.fall_landing_set()
 		state_machine.transition_to("Run")
 	else:
 		if(Input.is_action_pressed("jump")) and (stats.canJumpWhileCrouched or not stats.crouched):

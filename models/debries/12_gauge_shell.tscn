@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dd4shwonu2iu8"]
+
+[ext_resource type="PackedScene" uid="uid://ufngw5wrc13q" path="res://models/debries/debries_gltf/12_gauge_shells.glb" id="1_4t3x1"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5qf7g"]
+friction = 0.1
+bounce = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4t3x1"]
+size = Vector3(0.016, 0.043, 0.021)
+
+[node name="12_gauge_shell" type="RigidBody3D" unique_id=1360366730]
+collision_layer = 0
+physics_material_override = SubResource("PhysicsMaterial_5qf7g")
+continuous_cd = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=328419602]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 5.681624e-11, -0.0012998041)
+shape = SubResource("BoxShape3D_4t3x1")
+
+[node name="12_gauge_shells" parent="." unique_id=1014968076 instance=ExtResource("1_4t3x1")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -0.021443546)

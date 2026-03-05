@@ -7,7 +7,6 @@ class_name Player
 @export var spring : SpringArm3D
 @export var camera_dist = 0
 @export var camera_spine : Node3D
-@export var hud : Control
 @export var player_body : playermodel
 @export var player_cam : Camera3D
 @onready var coyoteTimer = $CoyoteTime
@@ -162,6 +161,7 @@ func get_delta_time() -> float:
 
 func pickup(object : Object):
 	print("picked up  " + str(object))
+	hud.show_inventory()
 	inventory.pickup(object, (selected_inventory_slot - 1))
 
 @export var hp_system : player_hp_management

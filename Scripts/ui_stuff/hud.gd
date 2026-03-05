@@ -1,5 +1,5 @@
 extends Control
-
+class_name  player_hud
 var player_inventory : Array
 	
 @export var slot_1 : RichTextLabel
@@ -7,6 +7,10 @@ var player_inventory : Array
 @export var slot_3 : RichTextLabel
 @export var selector : ColorRect
 @export var player_camera : Camera3D
+@export var animationplayer : AnimationPlayer
+@export var dialogue_controller : dialogue_control
+@export var dialogue_gimbal : Node3D
+@export var dialogue_cam_root : Node3D
 var ui_hp : float
 var req_selector_position : Vector2 = Vector2.ZERO
 
@@ -19,6 +23,14 @@ func _physics_process(delta: float) -> void:
 	screen_effects()
 	selector.global_position = lerp(selector.global_position, req_selector_position, 0.3)
 	hp_bar.value = lerp(hp_bar.value, ui_hp, 0.1)
+
+@export var inventory_timer : Timer
+func show_inventory():
+	animationplayer.play("inventory_toggle")
+	inventory_timer.start()
+	
+func inventory_hide_timer_timeout():
+	animationplayer.play_backwards("inventory_toggle")
 	
 func update_inventory_display():
 	player_inventory = get_parent().inventory.inventory_array
@@ -34,7 +46,6 @@ func update_inventory_display():
 		slot_3.text = "3 :" + player_inventory[2].item_name
 	else:
 		slot_3.text = "3 :empty"
-		
 		
 func update_inventory_select(slot : int):
 	if slot == 1:

@@ -27,6 +27,7 @@ func fire_type():
 
 var pellets = 9
 func object_function(check : bool):
+	Engine.time_scale = 0.1
 	if !check and equip_timer.is_stopped() and ammunition and fire_rate_timer.is_stopped():
 		play_fire_animation()
 		check_hit_shotgun()
@@ -70,12 +71,3 @@ func check_hit_shotgun():
 
 func fire_rate_timer_end():
 	pass
-
-func effects():
-	await get_tree().create_timer(0.75).timeout
-	var bullet_casing_clone : RigidBody3D = bullet_casing.instantiate()
-	add_child(bullet_casing_clone)
-	bullet_casing_clone.global_position = ejection_area.global_position
-	bullet_casing_clone.linear_velocity = ((ejection_dir_node.global_position - bullet_casing_clone.global_position).normalized() + Vector3(0, random_number.randf_range(-1, 1), 0)) * random_number.randf_range(1.0, 2.0)
-	bullet_casing_clone.angular_velocity = Vector3(0, random_number.randf_range(10, 100), 0)
-	bullet_casing_clone.reparent(root_node.particles)

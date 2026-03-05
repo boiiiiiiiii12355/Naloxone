@@ -4,6 +4,7 @@
 [ext_resource type="Shader" uid="uid://c10f0tsmsdpn2" path="res://shaders/vignette_chroma.gdshader" id="2_7lmbg"]
 [ext_resource type="Shader" uid="uid://c1scllotbi1hu" path="res://shaders/camcorder.gdshader" id="2_hqhin"]
 [ext_resource type="Shader" uid="uid://0axigunfvjov" path="res://shaders/chroma.gdshader" id="3_hqhin"]
+[ext_resource type="Script" uid="uid://cfofttx4si4fy" path="res://Scripts/dialogue_control.gd" id="5_224jd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1pnm5"]
 shader = ExtResource("2_hqhin")
@@ -58,7 +59,73 @@ shader_parameter/chaos = 0.0
 shader_parameter/radius = 1.0
 shader_parameter/attenuation = 1.9470000449825
 
-[node name="HUD" type="Control" unique_id=1151845633 node_paths=PackedStringArray("slot_1", "slot_2", "slot_3", "selector", "hp_bar", "blood_vignette_rect")]
+[sub_resource type="Animation" id="Animation_qtpdn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("dialogue:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 177.49)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("inventory:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5795229730548683]
+}
+
+[sub_resource type="Animation" id="Animation_224jd"]
+resource_name = "dialogue_show"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("dialogue:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.68302006, 0.68302006),
+"update": 0,
+"values": [Vector2(0, 177.725), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1pnm5"]
+resource_name = "inventory_toggle"
+length = 13.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("inventory:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.5777776438028734, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1pnm5"]
+_data = {
+&"RESET": SubResource("Animation_qtpdn"),
+&"dialogue_toggle": SubResource("Animation_224jd"),
+&"inventory_toggle": SubResource("Animation_1pnm5")
+}
+
+[node name="HUD" type="Control" unique_id=1151845633 node_paths=PackedStringArray("slot_1", "slot_2", "slot_3", "selector", "animationplayer", "dialogue_controller", "hp_bar", "inventory_timer", "blood_vignette_rect")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -70,7 +137,10 @@ slot_1 = NodePath("inventory/Slot 1")
 slot_2 = NodePath("inventory/Slot 2")
 slot_3 = NodePath("inventory/Slot 3")
 selector = NodePath("inventory/selector")
+animationplayer = NodePath("AnimationPlayer")
+dialogue_controller = NodePath("dialogue")
 hp_bar = NodePath("status/hp_bar")
+inventory_timer = NodePath("inventory_hide_timer")
 blood_vignette_rect = NodePath("blood_vignette")
 
 [node name="camcorder" type="ColorRect" parent="." unique_id=1364386023]
@@ -95,49 +165,50 @@ offset_bottom = 651.0
 
 [node name="inventory" type="Control" parent="." unique_id=627919267]
 anchors_preset = 0
-offset_left = -2.0
-offset_top = 7.0
-offset_right = 38.0
-offset_bottom = 47.0
+offset_left = -5.0
+offset_top = 354.0
+offset_right = 406.0
+offset_bottom = 447.0
+rotation = 1.579523
 
 [node name="background" type="ColorRect" parent="inventory" unique_id=720533348]
 layout_mode = 0
-offset_left = 745.0
-offset_top = 539.0
-offset_right = 1153.0
-offset_bottom = 640.0
+offset_left = 3.0
+offset_top = -5.0
+offset_right = 411.0
+offset_bottom = 96.0
 color = Color(0.29586652, 0.29586652, 0.29586634, 0.21568628)
 
 [node name="selector" type="ColorRect" parent="inventory" unique_id=1835693200]
 layout_mode = 0
-offset_left = 761.0
-offset_top = 547.0
-offset_right = 1131.0
-offset_bottom = 572.0
+offset_left = 19.0
+offset_top = 3.0
+offset_right = 389.0
+offset_bottom = 28.0
 color = Color(0, 0, 0, 0.5058824)
 
 [node name="Slot 3" type="RichTextLabel" parent="inventory" unique_id=2016064702]
 layout_mode = 0
-offset_left = 765.0
-offset_top = 599.0
-offset_right = 1102.0
-offset_bottom = 625.0
+offset_left = 23.0
+offset_top = 55.0
+offset_right = 360.0
+offset_bottom = 81.0
 text = "3"
 
 [node name="Slot 2" type="RichTextLabel" parent="inventory" unique_id=186158875]
 layout_mode = 0
-offset_left = 765.0
-offset_top = 573.0
-offset_right = 1102.0
-offset_bottom = 599.0
+offset_left = 23.0
+offset_top = 29.0
+offset_right = 360.0
+offset_bottom = 55.0
 text = "2"
 
 [node name="Slot 1" type="RichTextLabel" parent="inventory" unique_id=1535983781]
 layout_mode = 0
-offset_left = 765.0
-offset_top = 547.0
-offset_right = 1102.0
-offset_bottom = 573.0
+offset_left = 23.0
+offset_top = 3.0
+offset_right = 360.0
+offset_bottom = 29.0
 text = "1"
 
 [node name="status" type="Control" parent="." unique_id=676258757]
@@ -174,3 +245,35 @@ offset_top = 324.0
 offset_right = 579.0
 offset_bottom = 327.0
 rotation = 0.7853982
+
+[node name="dialogue" type="Control" parent="." unique_id=469706801 node_paths=PackedStringArray("text_label")]
+anchors_preset = 0
+offset_top = 177.49
+offset_right = 1153.0
+offset_bottom = 829.49
+script = ExtResource("5_224jd")
+text_label = NodePath("Label")
+
+[node name="textbox_background" type="ColorRect" parent="dialogue" unique_id=1204891928]
+layout_mode = 0
+offset_left = 129.0
+offset_top = 473.0
+offset_right = 998.0
+offset_bottom = 646.0
+color = Color(0.20392157, 0.20392157, 0.20392157, 0.49411765)
+
+[node name="Label" type="Label" parent="dialogue" unique_id=633431630]
+layout_mode = 0
+offset_left = 147.0
+offset_top = 491.0
+offset_right = 983.0
+offset_bottom = 635.0
+text = "the big brown fox jumps over the the large fence"
+
+[node name="inventory_hide_timer" type="Timer" parent="." unique_id=343302850]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1588546487]
+libraries/ = SubResource("AnimationLibrary_1pnm5")
+
+[connection signal="timeout" from="inventory_hide_timer" to="." method="inventory_hide_timer_timeout"]

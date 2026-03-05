@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://cilybo6efefom"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5qf7g"]
+friction = 0.3
+bounce = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5qf7g"]
+size = Vector3(0.02, 0.02, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5qf7g"]
+emission_enabled = true
+emission = Color(1, 1, 0, 1)
+
+[node name="9mm" type="RigidBody3D"]
+collision_layer = 0
+mass = 0.004
+physics_material_override = SubResource("PhysicsMaterial_5qf7g")
+continuous_cd = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_5qf7g")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0005322264)
+size = Vector3(0.007, 0.007, 0.02352539)
+material = SubResource("StandardMaterial3D_5qf7g")

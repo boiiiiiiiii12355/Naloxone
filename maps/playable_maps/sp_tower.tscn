@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bly1cw0xtom6u" path="res://maps/map_objects/p2000_phy.tscn" id="7_1nqs6"]
 [ext_resource type="PackedScene" uid="uid://dtcqajnjlqou5" path="res://maps/map_objects/p7_quiver_phy.tscn" id="8_nsedg"]
 [ext_resource type="PackedScene" uid="uid://bh3xk8hxufios" path="res://maps/map_objects/door_wood.tscn" id="9_u54fw"]
-[ext_resource type="PackedScene" uid="uid://xkb3p5xx5rpu" path="res://particle_effects/rain.tscn" id="10_b6ay2"]
+[ext_resource type="PackedScene" uid="uid://cglma2n2s2ajg" path="res://maps/map_objects/fs_12.tscn" id="10_b6ay2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5e6ql"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -32,19 +32,17 @@ volumetric_fog_enabled = true
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rr07l"]
 
-[node name="Level" type="Node3D" unique_id=1985717333 node_paths=PackedStringArray("objects", "particles")]
+[node name="Level" type="Node3D" unique_id=1985717333 node_paths=PackedStringArray("objects", "particles", "player")]
 script = ExtResource("1_gs2xo")
 objects = NodePath("test_whiteroom/objects")
 particles = NodePath("test_whiteroom/Particles")
+player = NodePath("player")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=771691444]
 environment = SubResource("Environment_ii602")
 
 [node name="player" parent="." unique_id=1567198433 instance=ExtResource("2_oadqg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -141.92044, 56.097958, -48.782604)
-
-[node name="Rain" parent="player" unique_id=1984531712 instance=ExtResource("10_b6ay2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.014785767, 12.855457, -0.119766235)
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=1585913264]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.09027, 0)
@@ -72,3 +70,6 @@ transform = Transform3D(0.07231563, -0.9973819, 0, 0.9973819, 0.07231563, 0, 0, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -128.14813, 56.09279, -62.502266)
 
 [node name="Particles" type="Node3D" parent="test_whiteroom" unique_id=131650942]
+
+[node name="fs_12" parent="test_whiteroom" unique_id=598115776 instance=ExtResource("10_b6ay2")]
+transform = Transform3D(-0.17651972, 0.10901182, 0.9782419, -0.9545648, 0.22346777, -0.1971498, -0.24009717, -0.96859616, 0.06461239, -142.00475, 56.37011, -53.081776)

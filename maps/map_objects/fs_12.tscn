@@ -23,11 +23,14 @@ base_damage = 30
 animation_player = NodePath("AnimationPlayer")
 chest_twist_offset = Vector3(-0.895, 0.385, 0)
 ejection_area = NodePath("ejection_area")
+bullet_debris_scene = "res://models/debries/12_gauge_shell.tscn"
+casing_eject_speed = 3.0
+eject_delay = 0.7
 equip_timer = NodePath("equip_timer")
 item_name = "FS_12"
 pickup_area = NodePath("pickup_area")
 
-[node name="Skeleton3D" parent="fs_12" parent_id_path=PackedInt32Array(652691694) index="0" unique_id=1872945401]
+[node name="Skeleton3D" parent="fs_12" parent_id_path=PackedInt32Array(154352269) index="0" unique_id=1051171037]
 bones/0/position = Vector3(0, 0, 0)
 bones/1/rotation = Quaternion(0.9968255, -0.004486104, 0.00293381, -0.07943745)
 bones/2/rotation = Quaternion(0.700562, 8.5066766e-08, 8.351349e-08, 0.71359164)
@@ -38,31 +41,31 @@ bones/6/position = Vector3(-0.105229154, 0.73824775, 0.4921653)
 bones/7/position = Vector3(-0.002575196, 0.8075086, 1.1058269)
 bones/7/rotation = Quaternion(0.6913893, 8.61266e-08, 8.242003e-08, 0.7224824)
 
-[node name="trigger_2" parent="fs_12/Skeleton3D" index="0" unique_id=1806520854]
+[node name="trigger_2" parent="fs_12/Skeleton3D" index="0" unique_id=78194938]
 transform = Transform3D(0.99994254, -0.008477617, 0.006561735, -0.009409834, -0.98733914, 0.15834455, 0.0051362636, -0.15839685, -0.9873643, 1.315714e-16, 0.5925449, 0.2581936)
 
-[node name="shell_port" parent="fs_12/Skeleton3D" index="1" unique_id=805171971]
+[node name="shell_port" parent="fs_12/Skeleton3D" index="1" unique_id=740349259]
 transform = Transform3D(1, 2.842171e-14, 2.384186e-07, 2.3837812e-07, 0.018425822, -0.9998303, -4.393115e-09, 0.9998303, 0.018425822, 1.2414732e-16, 0.5591098, 0.81358826)
 
-[node name="stock_butt" parent="fs_12/Skeleton3D" index="2" unique_id=483219510]
+[node name="stock_butt" parent="fs_12/Skeleton3D" index="2" unique_id=2139557623]
 transform = Transform3D(1, 3.8588234e-17, 3.754534e-16, 3.7462181e-16, 0.019666046, -0.9998063, -4.596448e-17, 0.9998064, 0.019665986, 8.6640094e-16, 1.0252287, 1.2460186)
 
-[node name="stock_2" parent="fs_12/Skeleton3D" index="3" unique_id=918778595]
+[node name="stock_2" parent="fs_12/Skeleton3D" index="3" unique_id=685521082]
 transform = Transform3D(1, 2.5903729e-16, 5.8637186e-17, -5.637443e-17, 0.4227714, -0.9062361, -2.5953915e-16, 0.9062362, 0.42277136, 1.6333001e-16, 0.72461796, -0.17118776)
 
-[node name="pump_2" parent="fs_12/Skeleton3D" index="4" unique_id=554244807]
+[node name="pump_2" parent="fs_12/Skeleton3D" index="4" unique_id=1400157540]
 transform = Transform3D(1, -9.258324e-17, 2.1017642e-14, 2.1017642e-14, 0.008810163, -0.99996126, -9.259002e-17, 0.99996126, 0.008810163, 9.265408e-17, 0.41727048, 1.6316346)
 
-[node name="ejection" parent="fs_12/Skeleton3D" index="5" unique_id=1458580889]
+[node name="ejection" parent="fs_12/Skeleton3D" index="5" unique_id=2036102891]
 transform = Transform3D(1, 0, 0, 0, 0.029708384, -0.99955857, 0, 0.99955857, 0.029708384, -0.105229154, 0.73824775, 0.4921653)
 
-[node name="shell" parent="fs_12/Skeleton3D" index="6" unique_id=419066404]
+[node name="shell" parent="fs_12/Skeleton3D" index="6" unique_id=1988729384]
 transform = Transform3D(1, -2.1316282e-14, 2.3841855e-07, 2.3818805e-07, 0.043961585, -0.9990332, -1.0481237e-08, 0.9990332, 0.043961585, -0.002575196, 0.8075086, 1.1058269)
 
-[node name="root" parent="fs_12/Skeleton3D" index="7" unique_id=1946557965]
+[node name="root" parent="fs_12/Skeleton3D" index="7" unique_id=1041943469]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="mainbarrelshell" parent="fs_12/Skeleton3D/root" index="2" unique_id=329714898]
+[node name="mainbarrelshell" parent="fs_12/Skeleton3D/root" index="2" unique_id=770849000]
 visible = false
 
 [node name="muzzle_flash" type="OmniLight3D" parent="." index="2" unique_id=1213219991]

@@ -10,6 +10,8 @@ class_name PlayerInputs
 @export var pickup_speed = 20
 @export var preselected_inventory_slot : int = 1
 @export var selected_inventory_slot : int = 1
+@export var hud : player_hud
+
 var camera : Node3D
 var kick_charge : float = 0.0
 var flashlight_toggle = false
@@ -116,8 +118,14 @@ func input_tick():
 		if object.is_in_group("interactable"):
 			if object.is_class("physics_item"):
 				object.object_function(false)
+			elif object.is_in_group("npc"):
+				var npc : npc_base = object
+				var dialogue_controller : dialogue_control = hud.dialogue_controller
+				dialogue_controller.store_dialogue_data(npc.dialogue_data_block)
+				dialogue_controller.play_dialogue_section(0)
 			else:
 				object.get_child(0).object_function(false)
+			
 			
 	elif Input.is_action_just_pressed("interact"):
 		print("nothing here...")
@@ -150,9 +158,11 @@ func input_tick():
 	if Input.is_action_just_pressed("scroll_up"):
 		preselected_inventory_slot -= 1
 		preselect_timer.start()
+		hud.show_inventory()
 	elif Input.is_action_just_pressed("scroll_down"):
 		preselected_inventory_slot += 1
 		preselect_timer.start()
+		hud.show_inventory()
 	inventory.hud.update_inventory_select(preselected_inventory_slot)
 
 	if selected_inventory_slot <= 1:
@@ -182,4 +192,5 @@ func pickup(object : Object):
 	pass
 
 func drop(slot : int):
+	hud.show_inventory()
 	inventory.drop(selected_inventory_slot)

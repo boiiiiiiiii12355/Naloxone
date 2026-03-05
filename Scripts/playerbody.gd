@@ -2,18 +2,15 @@ extends Node3D
 class_name playermodel
 
 @export var skeleton : Skeleton3D
-@export var arms_model : Node3D
 @export var camera_point : Node3D
 @export var legs_point : Node3D
 @export var animation_tree : AnimationTree
-@export var chest_tracker : Node3D
 @export var head_tracker : BoneAttachment3D
 @export var camera_spine : Node3D
-@export var chest_look_at_modi : LookAtModifier3D
-@export var upper_chest_look_at_modi : LookAtModifier3D
 @export var gun_point : Node3D
-@export var upper_chest_tracker : BoneAttachment3D
-@export var upper_chest_orgin : Node3D
+@export var upper_chest_attach : BoneAttachment3D
+@export var upper_chest_lookat : Node3D
+@export var copy_transform : CopyTransformModifier3D
 
 var chest_angle : float = 0.0
 var rtc_blend_amount = 0.0
@@ -25,7 +22,8 @@ var interact_blend = "parameters/interact_blend/blend_amount"
 var arms_action_timeseek = "parameters/arms_action_timeseek/seek_request"
 var kick_oneshot = "parameters/kick_oneshot/request"
 var kick_timeseek = "parameters/kick_timeseek/seek_request"
-
+var falling_blend = "parameters/falling_blend/blend_amount"
+var fall_landing = "parameters/fall_landing/request"
 
 #these are variables for physical slot nodes
 @export var equip_node : Node3D
@@ -41,10 +39,11 @@ func _physics_process(delta: float) -> void:
 		equip_node.get_parent().scale = Vector3(1, 1, 1)
 		animation_tree.set(stand_to_crouch, lerp(animation_tree.get(stand_to_crouch), rtc_blend_amount, 0.1))
 		animation_tree.set(arms_action_blend, lerp(animation_tree.get(arms_action_blend), float(equipstatus_check(false)), 0.2))
-
+		animation_tree.set(falling_blend, lerp(animation_tree.get(falling_blend), 0.0, 0.05))
+		
 func equipstatus_check(checkoffset:bool):
 	if !checkoffset:
-		var equipstatus : bool = false
+		var equipstatus : float = 0
 		equipstatus = equip_node.get_children().size()
 		return equipstatus
 	else:
@@ -55,8 +54,12 @@ var recoil_pos : Vector3 = Vector3.ZERO
 var upperchest_offset :Vector3 = Vector3(0.3, 0, 0)
 func chest_point_at(r_position : Vector3):
 	var end_position = r_position + recoil_pos 
+	var upper_torso_copy_amount = copy_transform.get("settings/0/amount")
+	copy_transform.set("settings/0/amount", lerp(upper_torso_copy_amount, equipstatus_check(false) + 0.1, 0.1))
 	camera_point.global_position = lerp(camera_point.global_position, end_position, 0.5)
 	camera_spine.global_position = head_tracker.global_position
+	upper_chest_lookat.look_at(camera_point.global_position, Vector3.UP, true)
+	upper_chest_lookat.global_position = owner.camera.global_position
 	recoil_process()
 	apply_camera_influence()
 	turn_body_to_cam()
@@ -101,6 +104,12 @@ func crouch_exit():
  
 func kick_charging():
 	pass
+
+func falling():
+	animation_tree.set(falling_blend, lerp(animation_tree.get(falling_blend), 1.0, 0.1))
+	
+func fall_landing_set():
+	animation_tree.set(fall_landing, 1)
 	
 func kick():
 	if !kicking:

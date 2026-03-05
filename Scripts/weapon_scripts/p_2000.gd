@@ -11,9 +11,10 @@ class_name gun_item_base
 @export var animation_player : AnimationPlayer
 @export var chest_twist_offset : Vector3 
 var ammunition = mag_size
-
+var player : Player
 
 func _ready() -> void:
+	player = owner.player
 	ammunition = mag_size
 	fire_rate_timer.connect("timeout", fire_rate_timer_end)
 	
@@ -88,11 +89,17 @@ func fire_rate_timer_end():
 var random_number = RandomNumberGenerator.new()
 @export var ejection_area : Node3D
 @onready var ejection_dir_node : Node3D = ejection_area.get_child(0)
-var bullet_casing = preload("res://particle_effects/bullet_casings.tscn")
+@export var bullet_debris_scene : String
+@export var casing_eject_speed : float = 4
+@export var casing_eject_angular_speed : float
+@export var eject_delay : float = 0 #delays ejection usefull for shotguns and snipers
+@onready var bullet_casing = load(bullet_debris_scene)
 func effects():
+	await get_tree().create_timer(eject_delay).timeout
 	var bullet_casing_clone : RigidBody3D = bullet_casing.instantiate()
 	add_child(bullet_casing_clone)
 	bullet_casing_clone.global_position = ejection_area.global_position
-	bullet_casing_clone.linear_velocity = ((ejection_dir_node.global_position - bullet_casing_clone.global_position).normalized() + Vector3(0, random_number.randf_range(-1, 1), 0)) * random_number.randf_range(2.0, 4.0)
+	var casing_speed = randf_range(casing_eject_speed/3, casing_eject_speed)
+	bullet_casing_clone.linear_velocity = player.velocity + ((ejection_dir_node.global_position - bullet_casing_clone.global_position).normalized()) * casing_speed
 	bullet_casing_clone.angular_velocity = Vector3(0, random_number.randf_range(10, 100), 0)
 	bullet_casing_clone.reparent(root_node.particles)

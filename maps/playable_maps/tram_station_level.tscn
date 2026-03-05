@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dtcqajnjlqou5" path="res://maps/map_objects/p7_quiver_phy.tscn" id="6_uphtb"]
 [ext_resource type="PackedScene" uid="uid://bg0rv43fg4qdr" path="res://maps/map_objects/hurt_area.tscn" id="7_84bnf"]
 [ext_resource type="PackedScene" uid="uid://cglma2n2s2ajg" path="res://maps/map_objects/fs_12.tscn" id="7_ttvm0"]
+[ext_resource type="PackedScene" uid="uid://be36tngkvrmmg" path="res://tscns/dialogue_testing.tscn" id="9_hc6mv"]
 [ext_resource type="PackedScene" uid="uid://bh3xk8hxufios" path="res://maps/map_objects/door_wood.tscn" id="10_hc6mv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2d02k"]
@@ -42,7 +43,7 @@ player = NodePath("player")
 environment = SubResource("Environment_uphtb")
 
 [node name="player" parent="." unique_id=1277926118 instance=ExtResource("2_4hwk0")]
-transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -45.26989, -0.5100522, -14.535689)
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -45.26989, -0.66324353, -14.535689)
 
 [node name="tram_station" parent="." unique_id=779237370 instance=ExtResource("1_gfy6y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00018501282, 0.83493423, 0.78322697)
@@ -73,6 +74,9 @@ use_collision = true
 size = Vector3(2.2235107, 0.94021606, 0.6690674)
 
 [node name="entities" type="Node3D" parent="tram_station" unique_id=1649373229]
+
+[node name="dialogue_testing" parent="tram_station/entities" unique_id=908961405 instance=ExtResource("9_hc6mv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.253387, -1.5095289, -10.120253)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1850443382]
 transform = Transform3D(0.97326714, -0.031313583, 0.22753142, 0, 0.9906624, 0.13633806, -0.22967604, -0.13269335, 0.96417916, 0, 23.347904, 0)

@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://be36tngkvrmmg"]
+
+[ext_resource type="Script" uid="uid://d17fkqx0v6l64" path="res://Scripts/npc.gd" id="1_faaix"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f5jct"]
+size = Vector3(0.5, 1.5195098, 0.5)
+
+[node name="dialogue_testing" type="Node3D" unique_id=908961405 node_paths=PackedStringArray("head") groups=["interactable", "npc"]]
+script = ExtResource("1_faaix")
+head = NodePath("head")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=401189902]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5397973, 0)
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=267210163]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2597978, 0)
+shape = SubResource("BoxShape3D_f5jct")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=758140354]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.79766303, 0)
+size = Vector3(0.5, 1.5157627, 0.5)
+
+[node name="Label3D" type="Label3D" parent="." unique_id=853600585]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+billboard = 1
+text = "npc_test :0"
+
+[node name="head" type="Node3D" parent="." unique_id=2013345393]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3507951, 0)

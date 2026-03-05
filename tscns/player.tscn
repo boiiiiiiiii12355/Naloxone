@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dppu81f8q0do2" path="res://tscns/hud.tscn" id="3_hpxkm"]
 [ext_resource type="Texture2D" uid="uid://da72e4jxersy2" path="res://images/icon.svg" id="3_imbja"]
 [ext_resource type="PackedScene" uid="uid://bllbjlr3e1iyr" path="res://models/char_models/player_ragdoll.tscn" id="4_hru13"]
-[ext_resource type="PackedScene" uid="uid://c42sugcir7jjr" path="res://models/char_models/gr_subject_203.tscn" id="4_k0k4f"]
+[ext_resource type="PackedScene" uid="uid://bh2chlhm77ckk" path="res://models/char_models/gr_subject_203.tscn" id="4_k0k4f"]
 [ext_resource type="Script" uid="uid://d1igmj4igr0ja" path="res://Scripts/stateMachine.gd" id="4_oxk7l"]
 [ext_resource type="Script" uid="uid://jibxa5kw7wft" path="res://Scripts/playerMovementScripts/Run.gd" id="5_mty1n"]
 [ext_resource type="Script" uid="uid://bpdjib6lk0mik" path="res://Scripts/player_camera.gd" id="6_hru13"]
@@ -33,19 +33,18 @@ radius = 0.21875
 height = 1.6298828
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jijlf"]
-size = Vector3(0.7, 1.655, 0.7)
+size = Vector3(0.5, 1.655, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4pade"]
-size = Vector3(0.7, 0.4, 0.7)
+size = Vector3(0.5, 0.4, 0.5)
 
-[node name="player" type="CharacterBody3D" unique_id=1277926118 node_paths=PackedStringArray("mySkin", "myShape", "spring", "camera_spine", "hud", "player_body", "player_cam", "chest_point_target", "hp_system", "view", "inventory", "interact_ray", "pickup_hold_area", "preselect_timer")]
+[node name="player" type="CharacterBody3D" unique_id=1277926118 node_paths=PackedStringArray("mySkin", "myShape", "spring", "camera_spine", "player_body", "player_cam", "chest_point_target", "hp_system", "view", "inventory", "interact_ray", "pickup_hold_area", "hud", "preselect_timer")]
 collision_layer = 2
 script = ExtResource("1_a7j60")
 mySkin = NodePath("MeshInstance3D")
 myShape = NodePath("map_colision")
 spring = NodePath("TwistPivot/PitchPivot")
 camera_spine = NodePath("TwistPivot")
-hud = NodePath("HUD")
 player_body = NodePath("GR_subject_203")
 player_cam = NodePath("TwistPivot/view")
 chest_point_target = NodePath("TwistPivot/view/point_target")
@@ -55,6 +54,7 @@ view = NodePath("TwistPivot/view")
 inventory = NodePath("Inventory")
 interact_ray = NodePath("TwistPivot/view/interact_ray")
 pickup_hold_area = NodePath("TwistPivot/pickup_area")
+hud = NodePath("HUD")
 preselect_timer = NodePath("preselect_timer")
 
 [node name="GR_subject_203" parent="." unique_id=1369285068 node_paths=PackedStringArray("camera_spine", "gun_ray") instance=ExtResource("4_k0k4f")]
@@ -112,13 +112,12 @@ rotation_edit_mode = 1
 [node name="view" type="Camera3D" parent="TwistPivot" unique_id=1795726355]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.028270006, -0.05330111)
 current = true
-near = 0.01
+near = 0.089
 script = ExtResource("6_hru13")
 
 [node name="interact_ray" type="RayCast3D" parent="TwistPivot/view" unique_id=995186137]
 target_position = Vector3(0, 0, -2.018)
-collision_mask = 1028
-hit_from_inside = true
+collision_mask = 1092
 collide_with_areas = true
 collide_with_bodies = false
 debug_shape_thickness = 1
@@ -129,6 +128,16 @@ collision_mask = 13
 
 [node name="point_target" type="Node3D" parent="TwistPivot/view" unique_id=145324719]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.575)
+
+[node name="Headbonk" type="ShapeCast3D" parent="." unique_id=1319775847]
+transform = Transform3D(-1, 1.50996e-07, 0, -1.50996e-07, -1, 0, 0, 0, 1, 0, 0.8504385, 0)
+shape = SubResource("BoxShape3D_4pade")
+
+[node name="environment_dmg_timer" type="Timer" parent="." unique_id=819652879]
+one_shot = true
+
+[node name="HUD" parent="." unique_id=817762856 node_paths=PackedStringArray("player_camera") instance=ExtResource("3_hpxkm")]
+player_camera = NodePath("../TwistPivot/view")
 
 [node name="activityMachine" type="Node" parent="." unique_id=607726714]
 script = ExtResource("4_oxk7l")
@@ -183,19 +192,9 @@ environment_damage_timer = NodePath("../environment_dmg_timer")
 player_model = NodePath("../GR_subject_203")
 player_ragdoll = NodePath("../player_ragdoll")
 
-[node name="HUD" parent="." unique_id=817762856 node_paths=PackedStringArray("player_camera") instance=ExtResource("3_hpxkm")]
-player_camera = NodePath("../TwistPivot/view")
-
-[node name="Headbonk" type="ShapeCast3D" parent="." unique_id=1319775847]
-transform = Transform3D(-1, 1.50996e-07, 0, -1.50996e-07, -1, 0, 0, 0, 1, 0, 0.8504385, 0)
-shape = SubResource("BoxShape3D_4pade")
-
 [node name="CoyoteTime" type="Timer" parent="." unique_id=238687300]
 wait_time = 0.15
 one_shot = true
 
 [node name="preselect_timer" type="Timer" parent="." unique_id=348207079]
-one_shot = true
-
-[node name="environment_dmg_timer" type="Timer" parent="." unique_id=819652879]
 one_shot = true
