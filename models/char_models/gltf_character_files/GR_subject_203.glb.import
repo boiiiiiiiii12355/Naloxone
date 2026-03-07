@@ -34,9 +34,9 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-materials/extract=0
-materials/extract_format=0
-materials/extract_path=""
+materials/extract=2
+materials/extract_format=2
+materials/extract_path="res://materials"
 _subresources={
 "animations": {
 "FS_12_equip": {
@@ -41161,50 +41161,45 @@ _subresources={
 }
 },
 "materials": {
-"arms": {
-"use_external/enabled": false,
-"use_external/fallback_path": "res://models/char_models/char_model_file_bin/arms.tres",
-"use_external/path": "uid://0knrltjgwa13"
+"body_texture": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://materials/body_texture.material",
+"use_external/path": "uid://ym8jo1ksndjo"
 },
-"dark_steel": {
-"use_external/enabled": false,
-"use_external/fallback_path": "res://models/char_models/char_model_file_bin/dark_steel.tres",
-"use_external/path": "uid://dlg5fddownyxd"
+"clothes": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://materials/clothes.material",
+"use_external/path": "uid://ca4nawgewynl3"
 },
-"hair_texture": {
-"use_external/enabled": false,
-"use_external/fallback_path": "res://models/char_models/char_model_file_bin/hair_texture.tres",
-"use_external/path": "uid://ktbbovr2s5c3"
+"eye_back": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://materials/eye_back.material",
+"use_external/path": "uid://0rvgdruh7apa"
 },
 "head_texture": {
-"use_external/enabled": false,
-"use_external/fallback_path": "res://models/char_models/char_model_file_bin/head_texture.tres",
-"use_external/path": "uid://7tf1iv6d6too"
+"use_external/enabled": true,
+"use_external/fallback_path": "res://materials/head_texture.material",
+"use_external/path": "uid://dwuro8j6mmjgl"
 },
-"legs": {
-"use_external/enabled": false,
-"use_external/fallback_path": "res://models/char_models/char_model_file_bin/legs.tres",
-"use_external/path": "uid://ioodc7k2qei3"
+"legs_texture": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://materials/legs_texture.material",
+"use_external/path": "uid://ci387dn0nxvyo"
 },
-"red_cloth": {
-"use_external/enabled": false,
-"use_external/fallback_path": "res://models/char_models/char_model_file_bin/red_cloth.tres",
-"use_external/path": "uid://dutc8ughy1jcm"
+"pads": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://materials/pads.material",
+"use_external/path": "uid://djkpcy57fri0l"
 },
-"steel": {
-"use_external/enabled": false,
-"use_external/fallback_path": "res://models/char_models/char_model_file_bin/steel.tres",
-"use_external/path": "uid://cxo8bkukglvw5"
+"suspenders": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://materials/suspenders.material",
+"use_external/path": "uid://cqedxy4lwuitp"
 },
-"suspender": {
-"use_external/enabled": false,
-"use_external/fallback_path": "res://models/char_models/char_model_file_bin/suspender.tres",
-"use_external/path": ""
-},
-"torso_texture": {
-"use_external/enabled": false,
-"use_external/fallback_path": "res://models/char_models/char_model_file_bin/torso_texture.tres",
-"use_external/path": "uid://bm57jeg5fl6xb"
+"tmp_material": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://materials/tmp_material.material",
+"use_external/path": "uid://rie3xdiewcc8"
 }
 }
 }
