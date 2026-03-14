@@ -6,10 +6,13 @@
 [resource]
 resource_name = "body_texture"
 cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("1_ul4h3")
-metallic = 0.2
-roughness = 0.15
+roughness = 0.1
 normal_enabled = true
 normal_texture = ExtResource("2_uexx7")
 rim_enabled = true
+backlight_enabled = true
+backlight = Color(0.52, 0.52, 0.52, 1)

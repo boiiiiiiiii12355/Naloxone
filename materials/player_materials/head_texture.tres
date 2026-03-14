@@ -12,4 +12,4 @@ albedo_texture = ExtResource("1_uq56d")
 roughness = 0.0
 rim_enabled = true
 backlight_enabled = true
-backlight = Color(0.7162962, 0.7162962, 0.7162962, 1)
+backlight = Color(0.52, 0.52, 0.52, 1)
