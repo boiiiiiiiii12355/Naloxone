@@ -5,11 +5,16 @@
 [resource]
 resource_name = "head_texture"
 cull_mode = 2
+diffuse_mode = 3
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("1_mpup5")
 metallic_specular = 0.0
 roughness = 0.5
 rim_enabled = true
+rim = 0.5
+rim_tint = 1.0
 rim_texture = ExtResource("1_mpup5")
-ao_enabled = true
+ao_texture = ExtResource("1_mpup5")
+backlight_enabled = true
+backlight = Color(0.37413925, 0.37413928, 0.37413922, 1)
 texture_filter = 2

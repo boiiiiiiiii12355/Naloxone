@@ -42,7 +42,9 @@ func _on_next_button_pressed() -> void:
 		dialogue_to_player_transition()
 	else:
 		play_dialogue_section(current_text_idx)
-	
+
+@export var npc : npc_base
+@export var dialogue_speed : float = 0.05
 func play_dialogue_section(idx : int):
 	if ! dialogue_storage.is_empty():
 		print("has data")
@@ -54,10 +56,13 @@ func play_dialogue_section(idx : int):
 			text_label.text = dialogue_storage[idx]
 			text_label.visible_characters = 0
 			for i  in text_label.text.length():
+				
 				text_label.visible_characters += 1
-				await get_tree().create_timer(0.05).timeout
-			
-	
+				if npc and i % 5:
+					print("speak")
+					npc.mouth_open()
+				await get_tree().create_timer(dialogue_speed).timeout
+
 func player_to_dialogue_transition():
 	dialogue_box_show()
 	var size_tween : Tween = get_tree().create_tween()

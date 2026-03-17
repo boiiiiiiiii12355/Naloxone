@@ -124,6 +124,7 @@ func input_tick():
 				var npc : npc_base = object
 				var dialogue_controller : dialogue_control = hud.dialogue_controller
 				npc.look_at_(self.player_body.head_tracker)
+				dialogue_controller.npc = npc
 				dialogue_controller.player_dialogue_cam_look_at(npc.head)
 				dialogue_controller.store_dialogue_data(npc.dialogue_data_block)
 				dialogue_controller.play_dialogue_section(0)
