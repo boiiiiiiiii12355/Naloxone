@@ -1,53 +1,21 @@
 [gd_scene format=3 uid="uid://chssi0i8kn5i1"]
 
-[ext_resource type="PackedScene" uid="uid://dl1qlpsy0ekcq" path="res://models/char_models/gltf_character_files/cassidie.glb" id="1_gm1od"]
+[ext_resource type="PackedScene" uid="uid://caabrycgfxxs8" path="res://models/char_models/gltf_character_files/cassidie.gltf" id="1_gm1od"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gm1od"]
 size = Vector3(0.518, 1.122, 0.523)
 
-[node name="Cassidie_npc" unique_id=2117830237 node_paths=PackedStringArray("animationplayer", "head", "head_look_at", "legs_look_at") groups=["interactable", "npc"] instance=ExtResource("1_gm1od")]
-animationplayer = NodePath("AnimationPlayer")
-head = NodePath("rig/Skeleton3D/head_track")
-head_look_at = NodePath("head_look_at")
-legs_look_at = NodePath("legs_look_at")
+[node name="Cassidie_npc" unique_id=1343816143 groups=["interactable", "npc"] instance=ExtResource("1_gm1od")]
 
-[node name="Skeleton3D" parent="rig" parent_id_path=PackedInt32Array(1999972442) index="0" unique_id=947345373]
-bones/1/position = Vector3(-0.058620088, -0.095161766, 0.91285145)
-bones/1/rotation = Quaternion(0.74864256, 0.08794143, -0.102066085, 0.64914036)
-bones/2/rotation = Quaternion(-0.064255, 0.0043526394, 0.06736736, 0.9956475)
-bones/3/rotation = Quaternion(-0.07746037, 0.0013429088, 0.032161854, 0.9964757)
-bones/4/rotation = Quaternion(0.0017042438, 0.0025863277, -0.03491025, 0.9993857)
-bones/5/rotation = Quaternion(0.20068891, -0.0068689045, -0.10156215, 0.9743521)
-bones/6/rotation = Quaternion(-0.09484641, 0.01450891, -0.0013845912, 0.9953852)
-bones/7/rotation = Quaternion(-0.09408832, -0.014890097, 0.027865805, 0.9950624)
-bones/9/rotation = Quaternion(-0.2963487, 0.66000485, -0.5051867, 0.47048658)
-bones/10/rotation = Quaternion(0.0007592492, 0.0503903, -0.037403546, 0.9980287)
-bones/11/rotation = Quaternion(0.06405973, -0.0016312962, 0.26407355, 0.9623715)
-bones/32/rotation = Quaternion(-0.29634842, -0.660005, 0.5051865, 0.4704865)
-bones/33/rotation = Quaternion(0.0007592484, -0.050390497, 0.03740342, 0.99802864)
-bones/34/rotation = Quaternion(0.064059995, 0.0016320196, -0.2640727, 0.96237165)
-bones/58/rotation = Quaternion(0.9768023, 0.15495111, -0.009944965, 0.14747477)
-bones/59/rotation = Quaternion(0.22590773, 0.025932176, -0.0060160765, 0.9737849)
-bones/60/rotation = Quaternion(-0.61196667, -0.023271132, 0.017440934, 0.79034877)
-bones/61/rotation = Quaternion(9.89685e-07, 0.9612522, -0.27567053, 7.796129e-08)
-bones/62/position = Vector3(-0.038000003, 0.019968849, 0.08799083)
-bones/62/rotation = Quaternion(0.67970777, 0.67970634, -0.19493157, 0.19493166)
-bones/63/rotation = Quaternion(0.98764277, 0.154247, -0.00989967, 0.025916684)
-bones/64/rotation = Quaternion(0.0029199123, 0.0064759804, -1.8924855e-05, 0.9999748)
-bones/65/rotation = Quaternion(-0.44795907, -0.022934917, 0.009108784, 0.8937135)
-bones/66/rotation = Quaternion(-0.0039601605, 0.9326905, -0.36065438, 0.0011356091)
-bones/67/position = Vector3(0.037769917, 0.035657853, 0.08298846)
-bones/67/rotation = Quaternion(0.66231084, -0.65671045, 0.25582707, 0.2542211)
+[node name="spine_006" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1580473829) index="0" unique_id=1515347844]
+transform = Transform3D(0.99999994, -5.2860287e-05, 2.3204422e-05, 4.8267826e-05, 0.9860873, 0.16622406, -3.1668216e-05, -0.16622423, 0.98608774, -5.3009848e-05, 1.6815544, 0.090793945)
 
-[node name="spine_006" parent="rig/Skeleton3D" index="0" unique_id=1468430514]
-transform = Transform3D(0.9396466, 0.34141418, 0.022364173, -0.34048578, 0.92665523, 0.15930602, 0.033665482, -0.15730624, 0.98697567, 0.08170171, 1.6717361, 0.09138211)
-
-[node name="head_track" type="BoneAttachment3D" parent="rig/Skeleton3D" index="5" unique_id=544601786]
-transform = Transform3D(0.9396466, 0.34141418, 0.022364173, -0.34048578, 0.92665523, 0.15930602, 0.033665482, -0.15730624, 0.98697567, 0.08170171, 1.6717361, 0.09138211)
+[node name="head_track" type="BoneAttachment3D" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1580473829) index="5" unique_id=544601786]
+transform = Transform3D(0.99999994, -5.2860287e-05, 2.3204422e-05, 4.8267826e-05, 0.9860873, 0.16622406, -3.1668216e-05, -0.16622423, 0.98608774, -5.3009848e-05, 1.6815544, 0.090793945)
 bone_name = "spine.006"
 bone_idx = 7
 
-[node name="root_look" type="LookAtModifier3D" parent="rig/Skeleton3D" index="6" unique_id=844515511]
+[node name="root_look" type="LookAtModifier3D" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1580473829) index="6" unique_id=844515511]
 transform = Transform3D(1.7606144, 0, 0, 0, 1.7606144, 0, 0, 0, 1.7606144, 0, 0, 0)
 target_node = NodePath("../../../legs_look_at")
 bone_name = "root"
@@ -56,12 +24,12 @@ forward_axis = 3
 primary_rotation_axis = 2
 use_secondary_rotation = false
 
-[node name="neck_look" type="LookAtModifier3D" parent="rig/Skeleton3D" index="7" unique_id=434286161]
+[node name="neck_look" type="LookAtModifier3D" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1580473829) index="7" unique_id=434286161]
 target_node = NodePath("../../../head_look_at")
 bone_name = "spine.005"
 bone = 6
 
-[node name="head_look" type="LookAtModifier3D" parent="rig/Skeleton3D" index="8" unique_id=908463644]
+[node name="head_look" type="LookAtModifier3D" parent="rig/Skeleton3D" parent_id_path=PackedInt32Array(1580473829) index="8" unique_id=908463644]
 target_node = NodePath("../../../head_look_at")
 bone_name = "spine.006"
 bone = 7

@@ -1,8 +1,15 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://88dikd2p7jq2"]
 
+[ext_resource type="Texture2D" uid="uid://cvgqm3thcd4u3" path="res://models/char_models/gltf_character_files/cassie_textures/hardhat_texture.png" id="1_2m2tr"]
+[ext_resource type="Texture2D" uid="uid://d18o4666jrex" path="res://models/char_models/gltf_character_files/cassie_textures/hardhat_texture-1.png" id="2_8ra7d"]
+
 [resource]
 resource_name = "lens"
 cull_mode = 2
-albedo_color = Color(0.6942435, 0.90664726, 0.82582146, 1)
+albedo_texture = ExtResource("1_2m2tr")
 metallic = 1.0
+metallic_texture = ExtResource("2_8ra7d")
+metallic_texture_channel = 2
 roughness = 0.0
+roughness_texture = ExtResource("2_8ra7d")
+roughness_texture_channel = 1

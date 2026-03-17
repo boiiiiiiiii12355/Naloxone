@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://biu1bb5ib56r2"
+uid="uid://caabrycgfxxs8"
 path="res://.godot/imported/cassidie.gltf-329af8b1986fac4ed247ea916dc40485.scn"
 
 [deps]
@@ -34,9 +34,9 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-materials/extract=1
+materials/extract=2
 materials/extract_format=0
 materials/extract_path="res://materials/casie_materials"
 _subresources={}
 gltf/naming_version=2
-gltf/embedded_image_handling=2
+gltf/embedded_image_handling=1

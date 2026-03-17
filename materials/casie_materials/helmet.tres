@@ -1,8 +1,10 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://dnx1ggm7wsxxy"]
 
+[ext_resource type="Texture2D" uid="uid://cvgqm3thcd4u3" path="res://models/char_models/gltf_character_files/cassie_textures/hardhat_texture.png" id="1_11o75"]
+
 [resource]
 resource_name = "helmet"
 cull_mode = 2
-albedo_color = Color(0.9064536, 0.8123001, 0, 1)
+albedo_texture = ExtResource("1_11o75")
 metallic = 0.021259695
 roughness = 0.13425188

@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cyp5w4k0urcrq"]
+
+[ext_resource type="Texture2D" uid="uid://cycefirayts8i" path="res://models/char_models/gltf_character_files/cassie_textures/cassie_head_2048.png" id="1_dgkb2"]
+
+[resource]
+resource_name = "hair"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_dgkb2")
+metallic_specular = 0.0
+rim_enabled = true
+rim_texture = ExtResource("1_dgkb2")
+texture_filter = 2
