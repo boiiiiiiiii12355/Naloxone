@@ -13,25 +13,25 @@ class_name grunt
 var hp = max_hp
 var player_spotted : bool = false
 var player_spot
-var player : Player
 var wishvelocity : Vector3 = Vector3.ZERO
 var compvelocity : Vector3 = Vector3.ZERO
 
 func _ready() -> void:
 	print(owner)
-	player = owner.player
 	nav_agent.connect("velocity_computed", velocity_computed)
 	
-	
+@export var curr_action : String
+@export var state : String
+@export var state_display : Label3D
 func _physics_process(delta: float) -> void:
 	velocity = lerp(velocity, compvelocity, 0.1)
 	nav_agent.set_velocity(wishvelocity)
 	move_and_slide()
 	gravity()
-	variable_update()
 	scan_for_player()
 	pathfinding()
-
+	state_display.text = "State : " + state
+	
 func velocity_computed(safe_velocity : Vector3):
 	compvelocity = safe_velocity
 	
@@ -49,22 +49,11 @@ var player_chase_dist = 5 #meter
 func scan_for_player():
 	if target_pos:
 		check_player_sightline.target_position = target_pos - check_player_sightline.global_position
-		
-	if check_player_sightline.is_colliding():
-		if check_player_sightline.get_collider().is_in_group("player_hitbox"):
-			player_spotted = true
-			main_target_pos = player.global_position
 			
 	if check_action_queued():
 		target_pos = action_queue[-1]
 	else:
 		target_pos = main_target_pos
-	
-var player_dist
-func variable_update():
-	player = self.player
-	if player:
-		player_dist = (player.global_position - self.global_position).length()
 	
 var action_queue : Array
 func check_action_queued():
@@ -113,7 +102,7 @@ func add_action(position : Vector3):
 #for testing combat ai only
 @export var gun_ray : RayCast3D
 func test_fire():
-	model.look_at(player.global_position, Vector3(0, 1, 0), true)
+	model.look_at(target_pos, Vector3(0, 1, 0))
 	if gun_ray.is_colliding():
 		var colider = gun_ray.get_collider()
 		var colide_pos = gun_ray.get_collision_point()

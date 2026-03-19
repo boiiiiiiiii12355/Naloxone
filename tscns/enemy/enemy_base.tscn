@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://1yxyrfjflrro"]
 
 [ext_resource type="Script" uid="uid://d0ox2l5ok3reh" path="res://Scripts/enemy_ai.gd" id="1_by24e"]
-[ext_resource type="PackedScene" uid="uid://cb4srhx3s5kg3" path="res://models/char_models/gltf_character_files/dummy_simple_bones.glb" id="1_ghyrv"]
+[ext_resource type="PackedScene" uid="uid://ce0li5k0uft0d" path="res://models/char_models/gltf_character_files/Grunt.gltf" id="4_hcxyg"]
 [ext_resource type="BehaviorTree" uid="uid://d1x35363miqf6" path="res://ai/behaviour_trees/agent_grunt.tres" id="4_pidst"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_by24e"]
@@ -14,15 +14,16 @@ height = 1.6845703
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_ma7yh"]
 
-[node name="enemy_base" type="CharacterBody3D" unique_id=303559765 node_paths=PackedStringArray("model", "check_player_sightline", "nav_agent", "interaction_area", "action_cooldown", "area_scanner", "gun_ray")]
+[node name="enemy_base" type="CharacterBody3D" unique_id=303559765 node_paths=PackedStringArray("model", "check_player_sightline", "nav_agent", "interaction_area", "action_cooldown", "area_scanner", "state_display", "gun_ray")]
 script = ExtResource("1_by24e")
-model = NodePath("test_model")
+model = NodePath("Grunt")
 check_player_sightline = NodePath("sight_line")
 nav_agent = NodePath("NavigationAgent3D")
 interaction_area = NodePath("Interaction_area")
 action_cooldown = NodePath("action_cooldown")
 area_scanner = NodePath("area_scanner")
-gun_ray = NodePath("test_model/CSGBox3D/RayCast3D")
+state_display = NodePath("state_display")
+gun_ray = NodePath("Grunt/CSGBox3D/RayCast3D")
 
 [node name="area_scanner" type="Node3D" parent="." unique_id=2145846045]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5457393, 0)
@@ -50,22 +51,6 @@ collision_mask = 1024
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.83877456, 0)
 shape = SubResource("CapsuleShape3D_ma7yh")
 
-[node name="test_model" parent="." unique_id=1371570031 instance=ExtResource("1_ghyrv")]
-
-[node name="CSGBox3D" type="CSGBox3D" parent="test_model" unique_id=364783273]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0016806126, 1.2164296, 0.37632883)
-size = Vector3(0.025, 0.095, 0.495)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="test_model/CSGBox3D" unique_id=1760038003]
-transform = Transform3D(1, 0, 0, 0, -0.43680185, -0.8995577, 0, 0.8995577, -0.43680185, 0, -0.07064009, -0.1657686)
-size = Vector3(0.05, 0.05, 0.205)
-
-[node name="RayCast3D" type="RayCast3D" parent="test_model/CSGBox3D" unique_id=653307533]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.25278306)
-target_position = Vector3(0, 0, 100)
-collision_mask = 33
-collide_with_areas = true
-
 [node name="sight_line" type="RayCast3D" parent="." unique_id=1229142707]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.536185, 0)
 target_position = Vector3(0, 0, 7.44)
@@ -83,3 +68,26 @@ one_shot = true
 [node name="BTPlayer" type="BTPlayer" parent="." unique_id=2012448635]
 behavior_tree = ExtResource("4_pidst")
 blackboard_plan = SubResource("BlackboardPlan_ma7yh")
+
+[node name="Grunt" parent="." unique_id=993321553 instance=ExtResource("4_hcxyg")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Grunt" unique_id=364783273]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.17793956, 1.250097, -0.3763288)
+size = Vector3(0.025, 0.095, 0.495)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Grunt/CSGBox3D" unique_id=1760038003]
+transform = Transform3D(1, 0, 0, 0, -0.43680185, -0.8995577, 0, 0.8995577, -0.43680185, 0, -0.07064009, -0.1657686)
+size = Vector3(0.05, 0.05, 0.205)
+
+[node name="RayCast3D" type="RayCast3D" parent="Grunt/CSGBox3D" unique_id=653307533]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.25278306)
+target_position = Vector3(0, 0, 100)
+collision_mask = 33
+collide_with_areas = true
+
+[node name="state_display" type="Label3D" parent="." unique_id=2097813166]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.880896, 0)
+billboard = 1
+text = "state :
+curr_action :"

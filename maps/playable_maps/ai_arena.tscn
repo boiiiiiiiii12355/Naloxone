@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://deibldum5pscv"]
+
+[ext_resource type="Script" uid="uid://1a4buntu66sd" path="res://maps/level.gd" id="1_71l5r"]
+[ext_resource type="PackedScene" uid="uid://ce0li5k0uft0d" path="res://models/char_models/gltf_character_files/Grunt.gltf" id="2_hkukh"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_hkukh"]
+vertices = PackedVector3Array(-5.25, 0.4792328, -8.5, -3.5, 0.4792328, -9.5, -4, 0.4792328, -9.75, -4, 0.4792328, -11, -3, 0.4792328, -11.25, -3, 0.4792328, -14.5, -14.5, 0.4792328, -12, -11, 0.4792328, -12, -10.5, 0.4792328, -13, -14.5, 0.4792328, -14.5, -9.5, 0.4792328, -13, 3, 0.4792328, -8.25, 4.75, 0.4792328, -8, 5.5, 0.4792328, -8.75, 5, 0.4792328, -14.5, 2.75, 0.4792328, -9.75, 6.5, 0.4792328, -8.5, 14.5, 0.4792328, -7.25, 14.5, 0.4792328, -14.5, 6.5, 0.4792328, -7.5, -3.25, 0.4792328, 0.75, -3, 0.4792328, 2, -1, 0.4792328, 2, -1, 0.4792328, -3.25, 1, 0.4792328, -3.5, 1.25, 0.4792328, -2.5, 3.5, 0.4792328, -2.75, 1.5, 0.4792328, -8, -5.75, 0.4792328, -7.25, -6.5, 0.4792328, -7.25, -14.5, 0.4792328, 2.25, -4.75, 0.4792328, 2.5, -4.5, 0.4792328, 0.75, 1.25, 0.4792328, 3.25, 0.75, 0.4792328, 3.5, 1, 0.4792328, 5.25, 2.5, 0.4792328, 5.5, 5.25, 0.4792328, -2, 3.75, 0.4792328, -1.75, 6.25, 0.4792328, 8.25, 14.5, 0.4792328, 8.25, 0.5, 0.4792328, 5.5, -0.75, 0.4792328, 3.5, 5.75, 0.4792328, 10.25, 0.5, 0.4792328, 6.5, -2.75, 0.4792328, 7.75, -3.75, 0.4792328, 14.5, 5.75, 0.4792328, 14.5, -3.75, 0.4792328, 8, -14.5, 0.4792328, 5.75, -4.5, 0.4792328, 5.75, -4.5, 0.4792328, 7.75, -14.5, 0.4792328, 14.5, 6.75, 0.4792328, 9.75, 14.5, 0.4792328, 14.5)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(3, 2, 0), PackedInt32Array(5, 4, 3), PackedInt32Array(7, 6, 8), PackedInt32Array(8, 6, 9), PackedInt32Array(3, 0, 5), PackedInt32Array(5, 0, 10), PackedInt32Array(8, 9, 10), PackedInt32Array(10, 9, 5), PackedInt32Array(12, 11, 13), PackedInt32Array(13, 11, 15), PackedInt32Array(13, 15, 14), PackedInt32Array(4, 5, 15), PackedInt32Array(15, 5, 14), PackedInt32Array(13, 14, 16), PackedInt32Array(16, 14, 18), PackedInt32Array(16, 18, 17), PackedInt32Array(17, 19, 16), PackedInt32Array(21, 20, 22), PackedInt32Array(22, 20, 23), PackedInt32Array(25, 24, 26), PackedInt32Array(26, 24, 27), PackedInt32Array(26, 27, 11), PackedInt32Array(26, 11, 12), PackedInt32Array(0, 1, 28), PackedInt32Array(28, 1, 27), PackedInt32Array(28, 27, 23), PackedInt32Array(23, 27, 24), PackedInt32Array(7, 29, 6), PackedInt32Array(6, 29, 32), PackedInt32Array(6, 32, 31), PackedInt32Array(6, 31, 30), PackedInt32Array(20, 32, 23), PackedInt32Array(23, 32, 28), PackedInt32Array(28, 32, 29), PackedInt32Array(34, 33, 35), PackedInt32Array(35, 33, 36), PackedInt32Array(38, 37, 33), PackedInt32Array(33, 37, 36), PackedInt32Array(36, 37, 39), PackedInt32Array(26, 38, 25), PackedInt32Array(25, 38, 33), PackedInt32Array(19, 17, 37), PackedInt32Array(37, 17, 39), PackedInt32Array(39, 17, 40), PackedInt32Array(35, 41, 34), PackedInt32Array(34, 41, 42), PackedInt32Array(44, 43, 45), PackedInt32Array(45, 43, 47), PackedInt32Array(45, 47, 46), PackedInt32Array(21, 22, 42), PackedInt32Array(41, 44, 42), PackedInt32Array(42, 44, 45), PackedInt32Array(42, 45, 21), PackedInt32Array(46, 48, 45), PackedInt32Array(30, 31, 49), PackedInt32Array(49, 31, 50), PackedInt32Array(48, 46, 51), PackedInt32Array(51, 46, 52), PackedInt32Array(51, 52, 49), PackedInt32Array(49, 50, 51), PackedInt32Array(43, 53, 47), PackedInt32Array(47, 53, 54), PackedInt32Array(54, 53, 40), PackedInt32Array(53, 39, 40)]
+geometry_source_geometry_mode = 1
+geometry_source_group_name = &"level_geometry"
+
+[node name="ai arena" type="Node3D" unique_id=1147952792 node_paths=PackedStringArray("objects", "particles")]
+script = ExtResource("1_71l5r")
+level_name = "ai_arena :0"
+objects = NodePath("objects")
+particles = NodePath("particles")
+metadata/_custom_type_script = "uid://1a4buntu66sd"
+
+[node name="objects" type="Node3D" parent="." unique_id=549497905]
+
+[node name="particles" type="Node3D" parent="." unique_id=1424222180]
+
+[node name="entities" type="Node3D" parent="." unique_id=1656849088]
+
+[node name="Grunt" parent="entities" unique_id=993321553 instance=ExtResource("2_hkukh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2052965, 0, 0.04049301)
+
+[node name="Grunt2" parent="entities" unique_id=36733427 instance=ExtResource("2_hkukh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.508372, 0, 0.11423111)
+
+[node name="map" type="Node3D" parent="." unique_id=1109815089 groups=["level_geometry"]]
+
+[node name="floor" type="CSGBox3D" parent="map" unique_id=646095220]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5207672, 0)
+use_collision = true
+size = Vector3(30, 1, 30)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="map" unique_id=1142676668]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3998771, 0)
+use_collision = true
+size = Vector3(1, 2.838379, 5.91)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="map" unique_id=1981635698]
+transform = Transform3D(0.27692893, 0, 0.9608904, 0, 1, 0, -0.9608904, 0, 0.27692893, -0.49220145, 1.3998771, -9.644387)
+use_collision = true
+size = Vector3(0.40734863, 2.838379, 5.91)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="map" unique_id=386323716]
+transform = Transform3D(0.58988714, 0, 0.8074857, 0, 1, 0, -0.8074857, 0, 0.58988714, 3.6378303, 1.3998771, 7.673504)
+use_collision = true
+size = Vector3(0.40734863, 2.838379, 5.91)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="map" unique_id=1251005234]
+transform = Transform3D(0.9986286, 0, 0.052353382, 0, 1, 0, -0.052353382, 0, 0.9986286, -3.798287, 1.3998771, 4.426964)
+use_collision = true
+size = Vector3(0.40734863, 2.838379, 5.91)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="map" unique_id=1545124766]
+transform = Transform3D(0.9694496, 0, -0.24529046, 0, 1, 0, 0.24529046, 0, 0.9694496, 5.0619736, 1.3998771, -5.2423277)
+use_collision = true
+size = Vector3(0.40734863, 2.838379, 5.91)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="map" unique_id=1536514897]
+transform = Transform3D(0.6942439, 0, 0.7197398, 0, 1, 0, -0.7197398, 0, 0.6942439, -8.029567, 1.3998771, -10.169724)
+use_collision = true
+size = Vector3(0.40734863, 2.838379, 5.91)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=419790379]
+transform = Transform3D(-0.9999832, 0, 0.005794405, 0.0039416305, 0.73298234, 0.6802363, -0.0042471965, 0.6802476, -0.73297, 0, 11.891436, -20.06035)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=216031910]
+navigation_mesh = SubResource("NavigationMesh_hkukh")
