@@ -8,29 +8,27 @@
 radius = 0.2
 height = 1.6513672
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ma7yh"]
-radius = 0.26708984
-height = 1.6845703
-
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_ma7yh"]
 
-[node name="enemy_base" type="CharacterBody3D" unique_id=303559765 node_paths=PackedStringArray("model", "check_player_sightline", "nav_agent", "interaction_area", "action_cooldown", "area_scanner", "state_display", "gun_ray") groups=["entity"]]
+[node name="enemy_base" type="CharacterBody3D" unique_id=303559765 node_paths=PackedStringArray("model", "sightline", "nav_agent", "interaction_area", "action_cooldown", "area_scanner", "head", "state_display", "gun_ray", "cover_detector") groups=["entity"]]
+collision_layer = 128
 script = ExtResource("1_by24e")
 model = NodePath("Grunt")
-check_player_sightline = NodePath("sight_line")
+sightline = NodePath("sight_line")
 nav_agent = NodePath("NavigationAgent3D")
-interaction_area = NodePath("Interaction_area")
+interaction_area = NodePath("")
 action_cooldown = NodePath("action_cooldown")
 area_scanner = NodePath("area_scanner")
+head = NodePath("sight_line")
 state_display = NodePath("state_display")
 gun_ray = NodePath("Grunt/CSGBox3D/RayCast3D")
+cover_detector = NodePath("cover_detector_circle")
 
 [node name="area_scanner" type="Node3D" parent="." unique_id=2145846045]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5457393, 0)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=677553047]
 path_desired_distance = 0.5
-target_desired_distance = 0.5
 avoidance_enabled = true
 radius = 0.2
 max_speed = 5.0
@@ -43,18 +41,10 @@ debug_path_custom_point_size = 10.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.81764877, 0)
 shape = SubResource("CapsuleShape3D_by24e")
 
-[node name="Interaction_area" type="Area3D" parent="." unique_id=1171531850]
-collision_layer = 0
-collision_mask = 1024
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Interaction_area" unique_id=1431534966]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.83877456, 0)
-shape = SubResource("CapsuleShape3D_ma7yh")
-
 [node name="sight_line" type="RayCast3D" parent="." unique_id=1229142707]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.536185, 0)
-target_position = Vector3(0, 0, 7.44)
-collision_mask = 32
+target_position = Vector3(0, 0, 103.8)
+collision_mask = 129
 collide_with_areas = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=7825596]
@@ -85,6 +75,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.25278306)
 target_position = Vector3(0, 0, 100)
 collision_mask = 33
 collide_with_areas = true
+
+[node name="cover_detector_circle" type="Node3D" parent="." unique_id=827923710]
 
 [node name="state_display" type="Label3D" parent="." unique_id=2097813166]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.880896, 0)

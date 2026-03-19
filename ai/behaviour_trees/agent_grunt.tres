@@ -1,90 +1,43 @@
 [gd_resource type="BehaviorTree" format=3 uid="uid://d1x35363miqf6"]
 
-[ext_resource type="Script" uid="uid://8i00cykmfiu" path="res://ai/ai_tasks/choose_random_pos(testing only !!!).gd" id="1_8ii65"]
-[ext_resource type="Script" uid="uid://c4apkkvnlo03k" path="res://ai/ai_tasks/move_to_pos.gd" id="2_r6i13"]
 [ext_resource type="Script" uid="uid://benw1bpnlnn40" path="res://ai/ai_tasks/scan_for_cover.gd" id="3_cmrs0"]
-[ext_resource type="Script" uid="uid://c7xg51g7on8h0" path="res://ai/ai_tasks/attack_primary.gd" id="4_hjh51"]
 [ext_resource type="Script" uid="uid://bp6ut7to5bck6" path="res://ai/ai_tasks/aquire_target.gd" id="5_tivvm"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_tttfl"]
 
-[sub_resource type="BTFail" id="BTFail_cmrs0"]
-
-[sub_resource type="BTAction" id="BTAction_r6i13"]
-script = ExtResource("1_8ii65")
-
-[sub_resource type="BTAction" id="BTAction_cmrs0"]
-script = ExtResource("2_r6i13")
-
-[sub_resource type="BTSequence" id="BTSequence_253pm"]
-custom_name = "sequence - moverand"
-children = [SubResource("BTAction_r6i13"), SubResource("BTAction_cmrs0")]
-
-[sub_resource type="BTDynamicSequence" id="BTDynamicSequence_cmrs0"]
-custom_name = "selector - patrol"
-children = [SubResource("BTFail_cmrs0"), SubResource("BTSequence_253pm")]
-
-[sub_resource type="BTFail" id="BTFail_tivvm"]
-
-[sub_resource type="BTAction" id="BTAction_hjh51"]
-script = ExtResource("3_cmrs0")
-
-[sub_resource type="BTAction" id="BTAction_tivvm"]
-script = ExtResource("2_r6i13")
-
-[sub_resource type="BTSequence" id="BTSequence_cmrs0"]
-custom_name = "sequence - move to cover"
-children = [SubResource("BTFail_tivvm"), SubResource("BTAction_hjh51"), SubResource("BTAction_tivvm")]
-
-[sub_resource type="BTFail" id="BTFail_hjh51"]
-
-[sub_resource type="BTAction" id="BTAction_6ap63"]
-script = ExtResource("4_hjh51")
-
-[sub_resource type="BTDelay" id="BTDelay_hjh51"]
-children = [SubResource("BTAction_6ap63")]
-seconds = 0.1
-
-[sub_resource type="BTRepeatUntilSuccess" id="BTRepeatUntilSuccess_hjh51"]
-children = [SubResource("BTDelay_hjh51")]
-
-[sub_resource type="BTSequence" id="BTSequence_hjh51"]
-custom_name = "sequence - attack"
-children = [SubResource("BTFail_hjh51"), SubResource("BTRepeatUntilSuccess_hjh51")]
-
-[sub_resource type="BTRandomSelector" id="BTRandomSelector_cmrs0"]
-custom_name = "selector - combat"
-children = [SubResource("BTSequence_cmrs0"), SubResource("BTSequence_hjh51")]
-
-[sub_resource type="BTAction" id="BTAction_tgqh2"]
-script = ExtResource("4_hjh51")
-
-[sub_resource type="BTDelay" id="BTDelay_tivvm"]
-children = [SubResource("BTAction_tgqh2")]
-seconds = 0.1
-
-[sub_resource type="BTRepeatUntilSuccess" id="BTRepeatUntilSuccess_tivvm"]
-children = [SubResource("BTDelay_tivvm")]
-
-[sub_resource type="BTSequence" id="BTSequence_34wxc"]
-children = [SubResource("BTRepeatUntilSuccess_tivvm")]
-
 [sub_resource type="BTAction" id="BTAction_e7e7m"]
 script = ExtResource("5_tivvm")
 
-[sub_resource type="BTAction" id="BTAction_a1aek"]
-script = ExtResource("2_r6i13")
+[sub_resource type="BBVariant" id="BBVariant_cmrs0"]
+resource_name = "true"
+saved_value = true
+type = 1
+
+[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_hjh51"]
+property = &"in_sight"
+value = SubResource("BBVariant_cmrs0")
+
+[sub_resource type="BTAction" id="BTAction_cmrs0"]
+script = ExtResource("3_cmrs0")
+
+[sub_resource type="BTProbability" id="BTProbability_r6i13"]
+children = [SubResource("BTAction_cmrs0")]
+
+[sub_resource type="BTCooldown" id="BTCooldown_r6i13"]
+children = [SubResource("BTProbability_r6i13")]
+duration = 2.0
 
 [sub_resource type="BTSequence" id="BTSequence_tivvm"]
 custom_name = "sequence - move towards target"
-children = [SubResource("BTAction_e7e7m"), SubResource("BTAction_a1aek")]
+children = [SubResource("BTAction_e7e7m"), SubResource("BTCheckAgentProperty_hjh51"), SubResource("BTCooldown_r6i13")]
 
 [sub_resource type="BTParallel" id="BTParallel_nfxcl"]
-children = [SubResource("BTSequence_34wxc"), SubResource("BTSequence_tivvm")]
+children = [SubResource("BTSequence_tivvm")]
+repeat = true
 
 [sub_resource type="BTSelector" id="BTSelector_m0450"]
 custom_name = "root"
-children = [SubResource("BTDynamicSequence_cmrs0"), SubResource("BTRandomSelector_cmrs0"), SubResource("BTParallel_nfxcl")]
+children = [SubResource("BTParallel_nfxcl")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_tttfl")
