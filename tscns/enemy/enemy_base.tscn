@@ -14,7 +14,7 @@ height = 1.6845703
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_ma7yh"]
 
-[node name="enemy_base" type="CharacterBody3D" unique_id=303559765 node_paths=PackedStringArray("model", "check_player_sightline", "nav_agent", "interaction_area", "action_cooldown", "area_scanner", "state_display", "gun_ray")]
+[node name="enemy_base" type="CharacterBody3D" unique_id=303559765 node_paths=PackedStringArray("model", "check_player_sightline", "nav_agent", "interaction_area", "action_cooldown", "area_scanner", "state_display", "gun_ray") groups=["entity"]]
 script = ExtResource("1_by24e")
 model = NodePath("Grunt")
 check_player_sightline = NodePath("sight_line")

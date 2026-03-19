@@ -64,6 +64,7 @@ level_geometry="levels models "
 door="anything thats a door. Mainly for ai to recognize and interact"
 cover_point_collection="a collection for all cover pointss"
 npc="non playable characters"
+entity="anything that may be targeted by other entities"
 
 [input]
 

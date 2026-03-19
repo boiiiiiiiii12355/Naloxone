@@ -10,11 +10,14 @@ class_name grunt
 @export var max_hp = 100
 @export var area_scanner : Node3D
 @export var cover_ignore_dist = 2
+@export var team : String
+@export var hostiles_list : PackedStringArray 
 var hp = max_hp
 var player_spotted : bool = false
 var player_spot
 var wishvelocity : Vector3 = Vector3.ZERO
 var compvelocity : Vector3 = Vector3.ZERO
+var target 
 
 func _ready() -> void:
 	print(owner)
@@ -26,12 +29,16 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	velocity = lerp(velocity, compvelocity, 0.1)
 	nav_agent.set_velocity(wishvelocity)
+	scan_surroundings()
 	move_and_slide()
 	gravity()
-	scan_for_player()
 	pathfinding()
 	state_display.text = "State : " + state
-	
+	if check_action_queued():
+		target_pos = action_queue[-1]
+	else:
+		target_pos = main_target_pos
+		
 func velocity_computed(safe_velocity : Vector3):
 	compvelocity = safe_velocity
 	
@@ -41,20 +48,37 @@ func gravity():
 	else:
 		wishvelocity.y = 0
 	
+func scan_surroundings():
+	var entity_list : Array = get_tree().get_nodes_in_group("entity")
+	for i in entity_list:
+		var entity : grunt = i
+		var entity_dist = self.global_position.distance_to(entity.global_position)
+		if entity_dist < 100 and entity != self and hostiles_list.has(entity.team) and !potential_targets.has(entity):
+			add_potential_target(entity)
+			print("new target")
+			
+var potential_targets : Array = [null]
+func add_potential_target(entity_target):
+	if potential_targets.size() <= 1:
+		potential_targets.resize(1)
+	if ! potential_targets[-1]:
+		potential_targets[-1] = entity_target
+	else:
+		potential_targets.resize(potential_targets.size() + 1)
+	potential_targets.sort_custom(sort_by_dist)
+	target = potential_targets[0]
+	
+func sort_by_dist(a:Vector3, b:Vector3):
+	var dist_a = global_position.distance_squared_to(a)
+	var dist_b = global_position.distance_squared_to(b)
+	
+	if dist_a < dist_b:
+		return true
+	return false
+
+
 #should finish all this once i figure out navigation meshes
 var speed = 10
-var player_chase_dist = 5 #meter
-#this controls how far away the ai should stop when chasing the player
-
-func scan_for_player():
-	if target_pos:
-		check_player_sightline.target_position = target_pos - check_player_sightline.global_position
-			
-	if check_action_queued():
-		target_pos = action_queue[-1]
-	else:
-		target_pos = main_target_pos
-	
 var action_queue : Array
 func check_action_queued():
 	if !action_queue.is_empty():
@@ -102,11 +126,10 @@ func add_action(position : Vector3):
 #for testing combat ai only
 @export var gun_ray : RayCast3D
 func test_fire():
-	model.look_at(target_pos, Vector3(0, 1, 0))
+	model.look_at(target.global_position, Vector3(0, 1, 0))
 	if gun_ray.is_colliding():
 		var colider = gun_ray.get_collider()
-		var colide_pos = gun_ray.get_collision_point()
-		DrawLine3d.DrawLine(gun_ray.global_position, gun_ray.get_collision_point(), Color.YELLOW, 0.01)
+		DrawLine3d.DrawLine(gun_ray.global_position, gun_ray.get_collision_point(), Color.FIREBRICK, 0.1)
 		print(colider)
 		if colider.is_in_group("player_hitbox"):
 			var player_tar : Player = colider.owner

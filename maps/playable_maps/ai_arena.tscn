@@ -1,7 +1,20 @@
 [gd_scene format=3 uid="uid://deibldum5pscv"]
 
 [ext_resource type="Script" uid="uid://1a4buntu66sd" path="res://maps/level.gd" id="1_71l5r"]
-[ext_resource type="PackedScene" uid="uid://ce0li5k0uft0d" path="res://models/char_models/gltf_character_files/Grunt.gltf" id="2_hkukh"]
+[ext_resource type="PackedScene" uid="uid://1yxyrfjflrro" path="res://tscns/enemy/enemy_base.tscn" id="2_hkukh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hkukh"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_gsl2m"]
+sky_material = SubResource("ProceduralSkyMaterial_hkukh")
+
+[sub_resource type="Environment" id="Environment_3th1b"]
+background_mode = 2
+sky = SubResource("Sky_gsl2m")
+tonemap_mode = 2
+glow_enabled = true
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_hkukh"]
 vertices = PackedVector3Array(-5.25, 0.4792328, -8.5, -3.5, 0.4792328, -9.5, -4, 0.4792328, -9.75, -4, 0.4792328, -11, -3, 0.4792328, -11.25, -3, 0.4792328, -14.5, -14.5, 0.4792328, -12, -11, 0.4792328, -12, -10.5, 0.4792328, -13, -14.5, 0.4792328, -14.5, -9.5, 0.4792328, -13, 3, 0.4792328, -8.25, 4.75, 0.4792328, -8, 5.5, 0.4792328, -8.75, 5, 0.4792328, -14.5, 2.75, 0.4792328, -9.75, 6.5, 0.4792328, -8.5, 14.5, 0.4792328, -7.25, 14.5, 0.4792328, -14.5, 6.5, 0.4792328, -7.5, -3.25, 0.4792328, 0.75, -3, 0.4792328, 2, -1, 0.4792328, 2, -1, 0.4792328, -3.25, 1, 0.4792328, -3.5, 1.25, 0.4792328, -2.5, 3.5, 0.4792328, -2.75, 1.5, 0.4792328, -8, -5.75, 0.4792328, -7.25, -6.5, 0.4792328, -7.25, -14.5, 0.4792328, 2.25, -4.75, 0.4792328, 2.5, -4.5, 0.4792328, 0.75, 1.25, 0.4792328, 3.25, 0.75, 0.4792328, 3.5, 1, 0.4792328, 5.25, 2.5, 0.4792328, 5.5, 5.25, 0.4792328, -2, 3.75, 0.4792328, -1.75, 6.25, 0.4792328, 8.25, 14.5, 0.4792328, 8.25, 0.5, 0.4792328, 5.5, -0.75, 0.4792328, 3.5, 5.75, 0.4792328, 10.25, 0.5, 0.4792328, 6.5, -2.75, 0.4792328, 7.75, -3.75, 0.4792328, 14.5, 5.75, 0.4792328, 14.5, -3.75, 0.4792328, 8, -14.5, 0.4792328, 5.75, -4.5, 0.4792328, 5.75, -4.5, 0.4792328, 7.75, -14.5, 0.4792328, 14.5, 6.75, 0.4792328, 9.75, 14.5, 0.4792328, 14.5)
@@ -16,17 +29,48 @@ objects = NodePath("objects")
 particles = NodePath("particles")
 metadata/_custom_type_script = "uid://1a4buntu66sd"
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1769714603]
+environment = SubResource("Environment_3th1b")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1654279329]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
 [node name="objects" type="Node3D" parent="." unique_id=549497905]
 
 [node name="particles" type="Node3D" parent="." unique_id=1424222180]
 
 [node name="entities" type="Node3D" parent="." unique_id=1656849088]
 
-[node name="Grunt" parent="entities" unique_id=993321553 instance=ExtResource("2_hkukh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2052965, 0, 0.04049301)
+[node name="enemy_blue" parent="entities" unique_id=303559765 instance=ExtResource("2_hkukh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.859639, 0.02939725, -0.49229145)
+team = "blue"
+hostiles_list = PackedStringArray("red")
 
-[node name="Grunt2" parent="entities" unique_id=36733427 instance=ExtResource("2_hkukh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.508372, 0, 0.11423111)
+[node name="enemy_blue2" parent="entities" unique_id=86017602 instance=ExtResource("2_hkukh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.905609, 0.029398203, -3.5258918)
+team = "blue"
+hostiles_list = PackedStringArray("red")
+
+[node name="enemy_blue3" parent="entities" unique_id=1705241366 instance=ExtResource("2_hkukh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.87978, 0.029398203, 2.428773)
+team = "blue"
+hostiles_list = PackedStringArray("red")
+
+[node name="enemy_red" parent="entities" unique_id=1518706962 instance=ExtResource("2_hkukh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.936649, 0.029395342, 0.116508484)
+team = "red"
+hostiles_list = PackedStringArray("blue")
+
+[node name="enemy_red2" parent="entities" unique_id=563020034 instance=ExtResource("2_hkukh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.906694, 0.029395342, -1.7581882)
+team = "red"
+hostiles_list = PackedStringArray("blue")
+
+[node name="enemy_red3" parent="entities" unique_id=778629576 instance=ExtResource("2_hkukh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.01057, 0.029395342, 2.7400331)
+team = "red"
+hostiles_list = PackedStringArray("blue")
 
 [node name="map" type="Node3D" parent="." unique_id=1109815089 groups=["level_geometry"]]
 
@@ -66,7 +110,7 @@ use_collision = true
 size = Vector3(0.40734863, 2.838379, 5.91)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=419790379]
-transform = Transform3D(-0.9999832, 0, 0.005794405, 0.0039416305, 0.73298234, 0.6802363, -0.0042471965, 0.6802476, -0.73297, 0, 11.891436, -20.06035)
+transform = Transform3D(-0.9999832, -2.5695665e-10, 0.0057944045, 0.005184755, 0.44649455, 0.8947713, -0.0025871699, 0.89478636, -0.44648704, 0, 13.643492, -11.974905)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=216031910]
 navigation_mesh = SubResource("NavigationMesh_hkukh")
