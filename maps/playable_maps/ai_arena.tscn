@@ -12,6 +12,7 @@ sky_material = SubResource("ProceduralSkyMaterial_hkukh")
 
 [sub_resource type="Environment" id="Environment_3th1b"]
 background_mode = 2
+background_energy_multiplier = 0.15
 sky = SubResource("Sky_gsl2m")
 tonemap_mode = 2
 glow_enabled = true
@@ -34,6 +35,7 @@ environment = SubResource("Environment_3th1b")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1654279329]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+light_energy = 0.0
 shadow_enabled = true
 
 [node name="objects" type="Node3D" parent="." unique_id=549497905]
@@ -47,8 +49,33 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.839377, 0.02939725, -0.492
 team = "blue"
 hostiles_list = PackedStringArray("red")
 
+[node name="enemy_blue2" parent="entities" unique_id=1632176859 instance=ExtResource("2_hkukh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.085696, 0.02939725, 13.172062)
+team = "blue"
+hostiles_list = PackedStringArray("red")
+
+[node name="enemy_blue3" parent="entities" unique_id=2135679533 instance=ExtResource("2_hkukh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.997611, 0.02939725, -8.929745)
+team = "blue"
+hostiles_list = PackedStringArray("red")
+
 [node name="enemy_red" parent="entities" unique_id=1518706962 instance=ExtResource("2_hkukh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.936649, 0.029395342, 0.116508484)
+team = "red"
+hostiles_list = PackedStringArray("blue")
+
+[node name="enemy_red2" parent="entities" unique_id=89327115 instance=ExtResource("2_hkukh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.144608, 0.029395342, 10.621329)
+team = "red"
+hostiles_list = PackedStringArray("blue")
+
+[node name="enemy_red3" parent="entities" unique_id=575134626 instance=ExtResource("2_hkukh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.013256, 0.029395342, -9.578301)
+team = "red"
+hostiles_list = PackedStringArray("blue")
+
+[node name="enemy_red4" parent="entities" unique_id=1944141809 instance=ExtResource("2_hkukh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.013256, 0.029395342, -9.578301)
 team = "red"
 hostiles_list = PackedStringArray("blue")
 

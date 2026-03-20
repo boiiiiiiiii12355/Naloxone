@@ -1,6 +1,7 @@
 [gd_resource type="BehaviorTree" format=3 uid="uid://d1x35363miqf6"]
 
 [ext_resource type="Script" uid="uid://benw1bpnlnn40" path="res://ai/ai_tasks/scan_for_cover.gd" id="3_cmrs0"]
+[ext_resource type="Script" uid="uid://c7xg51g7on8h0" path="res://ai/ai_tasks/attack_primary.gd" id="3_hjh51"]
 [ext_resource type="Script" uid="uid://bp6ut7to5bck6" path="res://ai/ai_tasks/aquire_target.gd" id="5_tivvm"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_tttfl"]
@@ -20,20 +21,39 @@ value = SubResource("BBVariant_cmrs0")
 [sub_resource type="BTAction" id="BTAction_cmrs0"]
 script = ExtResource("3_cmrs0")
 
-[sub_resource type="BTProbability" id="BTProbability_r6i13"]
-children = [SubResource("BTAction_cmrs0")]
+[sub_resource type="BTAction" id="BTAction_r6i13"]
+script = ExtResource("3_cmrs0")
+cover_type = "evasive"
 
-[sub_resource type="BTCooldown" id="BTCooldown_r6i13"]
-children = [SubResource("BTProbability_r6i13")]
-duration = 2.0
+[sub_resource type="BTRandomSelector" id="BTRandomSelector_cmrs0"]
+children = [SubResource("BTAction_cmrs0"), SubResource("BTAction_r6i13")]
 
 [sub_resource type="BTSequence" id="BTSequence_tivvm"]
 custom_name = "sequence - move towards target"
-children = [SubResource("BTAction_e7e7m"), SubResource("BTCheckAgentProperty_hjh51"), SubResource("BTCooldown_r6i13")]
+children = [SubResource("BTAction_e7e7m"), SubResource("BTCheckAgentProperty_hjh51"), SubResource("BTRandomSelector_cmrs0")]
+
+[sub_resource type="BBVariant" id="BBVariant_tivvm"]
+resource_name = "true"
+saved_value = true
+type = 1
+
+[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_6ap63"]
+property = &"in_sight"
+value = SubResource("BBVariant_tivvm")
+
+[sub_resource type="BTAction" id="BTAction_a1aek"]
+script = ExtResource("3_hjh51")
+
+[sub_resource type="BTCooldown" id="BTCooldown_cmrs0"]
+children = [SubResource("BTAction_a1aek")]
+duration = 0.1
+
+[sub_resource type="BTSequence" id="BTSequence_34wxc"]
+custom_name = "sequence - attack"
+children = [SubResource("BTCheckAgentProperty_6ap63"), SubResource("BTCooldown_cmrs0")]
 
 [sub_resource type="BTParallel" id="BTParallel_nfxcl"]
-children = [SubResource("BTSequence_tivvm")]
-repeat = true
+children = [SubResource("BTSequence_tivvm"), SubResource("BTSequence_34wxc")]
 
 [sub_resource type="BTSelector" id="BTSelector_m0450"]
 custom_name = "root"

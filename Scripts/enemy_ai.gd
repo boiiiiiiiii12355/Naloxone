@@ -23,6 +23,7 @@ var target
 func _ready() -> void:
 	print(owner)
 	nav_agent.connect("velocity_computed", velocity_computed)
+	state_display.text = "Team " + team
 	cover_detector_setup()
 	
 @export var curr_action : String
@@ -38,13 +39,15 @@ func _physics_process(delta: float) -> void:
 	gravity()
 	pathfinding()
 	cover_detector_process()
-	state_display.text = "State : " + state
 	if check_action_queued():
 		target_pos = action_queue[-1]
 	else:
 		target_pos = main_target_pos
 	if target:
 		sightline.look_at(target.head.global_position, Vector3.UP, true)
+	
+	if hp <= 0:
+		queue_free()
 		
 func velocity_computed(safe_velocity : Vector3):
 	compvelocity = safe_velocity
@@ -147,19 +150,20 @@ func add_action(position : Vector3):
 #for testing combat ai only
 @export var gun_ray : RayCast3D
 func test_fire():
-	if !sightline.is_colliding():
-		model.look_at(target.global_position, Vector3(0, 1, 0))
-		if gun_ray.is_colliding():
-			var colider = gun_ray.get_collider()
-			DrawLine3d.DrawLine(gun_ray.global_position, gun_ray.get_collision_point(), Color(team), 0.1)
-			if colider.is_in_group("player_hitbox"):
-				var player_tar : Player = colider.owner
-				player_tar.take_damage(10)
-			
+	model.look_at(target.global_position, Vector3(0, 1, 0))
+	if gun_ray.is_colliding():
+		var colider = gun_ray.get_collider()
+		DrawLine3d.DrawLine(gun_ray.global_position, gun_ray.get_collision_point(), Color(team), 0.1)
+		if colider.is_in_group("player_hitbox"):
+			var player_tar : Player = colider.owner
+			player_tar.take_damage(10)
+		elif colider.is_in_group("entity"):
+			var entity_tar = colider.owner
+			entity_tar.hp -= 10
 
 #this section is for circle raycasting
 @export var cover_detector : Node3D
-var cover_detector_radius : float = 5.0
+var cover_detector_radius : float = 10.0
 func cover_detector_setup():
 	var ray_num = 0
 	for i in range(0, 360, 10):
@@ -185,35 +189,63 @@ func cover_detector_process():
 		var idx = raycast.get_index()
 		raycast.target_position = target.head.global_position - raycast.global_position
 		
-		if raycast.is_colliding():
-			var collide_pos = raycast.get_collision_point()
-			cover_ray_hits[idx] = collide_pos
+		var collide_pos = raycast.get_collision_point()
+		cover_ray_hits[idx] = collide_pos
 			
-	if cover_ray_hits[0]:
-		cover_ray_hits.sort_custom(sort_by_position_dist)
+	if cover_ray_hits[0] != null:
+		cover_ray_hits.filter(null_filter)
+		cover_ray_hits.sort_custom(sort_by_self_dist_nearest)
 		DrawLine3d.DrawLine(cover_ray_hits[0], self.global_position, Color.REBECCA_PURPLE, 0.1)
 		
-func get_temporary_raycast_collision_3d(start_position: Vector3, end_position: Vector3):
-	var space_state = get_world_3d().direct_space_state
-	var query = PhysicsRayQueryParameters3D.create(start_position, end_position)
-	var result = space_state.intersect_ray(query)
-	if result.is_empty():
-		return null
-	else:
-		return result
+func null_filter(value):
+	print(value)
+	if value != null:
+		return value
 		
-func get_nearest_cover():
+func get_nearest_from_self_cover():
+	cover_ray_hits.sort_custom(sort_by_self_dist_nearest)
 	return cover_ray_hits[0]
 	
-func sort_by_position_dist(a : Vector3, b : Vector3):
+func get_furtherest_cover_from_self():
+	cover_ray_hits.sort_custom(sort_by_self_dist_furtherest)
+	return cover_ray_hits[0]
+	
+func get_nearest_cover_target():
+	cover_ray_hits.sort_custom(sort_by_target_from_cover_dist_closest)
+	return cover_ray_hits[0]
+	
+func get_furtherest_cover_target():
+	cover_ray_hits.sort_custom(sort_by_target_from_cover_dist_furtherest)
+	return cover_ray_hits[0]
+	
+func sort_by_self_dist_nearest(a : Vector3, b : Vector3):
 	var dist_a = self.global_position.distance_squared_to(a)
 	var dist_b = self.global_position.distance_squared_to(b)
-	
-	if target.global_position.distance_squared_to(global_position) < 10 and in_sight:
-		if dist_a > dist_b:
-			return true
-		return false
+	if dist_a < dist_b:
+		return true
 	else:
-		if dist_a < dist_b:
-			return true
+		return false
+
+func sort_by_self_dist_furtherest(a : Vector3, b : Vector3):
+	var dist_a = self.global_position.distance_squared_to(a)
+	var dist_b = self.global_position.distance_squared_to(b)
+	if dist_a > dist_b:
+		return true
+	else:
+		return false
+		
+func sort_by_target_from_cover_dist_closest(a : Vector3, b : Vector3):
+	var dist_a = self.global_position.distance_squared_to(a)
+	var dist_b = self.global_position.distance_squared_to(b)
+	if dist_a < dist_b:
+		return true
+	else:
+		return false
+
+func sort_by_target_from_cover_dist_furtherest(a : Vector3, b : Vector3):
+	var dist_a = self.global_position.distance_squared_to(a)
+	var dist_b = self.global_position.distance_squared_to(b)
+	if dist_a > dist_b:
+		return true
+	else:
 		return false

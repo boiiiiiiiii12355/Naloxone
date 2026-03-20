@@ -10,13 +10,15 @@ height = 1.6513672
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_ma7yh"]
 
-[node name="enemy_base" type="CharacterBody3D" unique_id=303559765 node_paths=PackedStringArray("model", "sightline", "nav_agent", "interaction_area", "action_cooldown", "area_scanner", "head", "state_display", "gun_ray", "cover_detector") groups=["entity"]]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ma7yh"]
+size = Vector3(0.736, 1.69, 0.615)
+
+[node name="enemy_base" type="CharacterBody3D" unique_id=303559765 node_paths=PackedStringArray("model", "sightline", "nav_agent", "action_cooldown", "area_scanner", "head", "state_display", "gun_ray", "cover_detector") groups=["entity"]]
 collision_layer = 128
 script = ExtResource("1_by24e")
 model = NodePath("Grunt")
 sightline = NodePath("sight_line")
 nav_agent = NodePath("NavigationAgent3D")
-interaction_area = NodePath("")
 action_cooldown = NodePath("action_cooldown")
 area_scanner = NodePath("area_scanner")
 head = NodePath("sight_line")
@@ -52,7 +54,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5586953, 0)
 shadow_bias = 0.786
 
 [node name="action_cooldown" type="Timer" parent="." unique_id=513505029]
-wait_time = 0.3
+wait_time = 0.5
 one_shot = true
 
 [node name="BTPlayer" type="BTPlayer" parent="." unique_id=2012448635]
@@ -81,5 +83,13 @@ collide_with_areas = true
 [node name="state_display" type="Label3D" parent="." unique_id=2097813166]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.880896, 0)
 billboard = 1
-text = "state :
-curr_action :"
+text = "Team"
+font_size = 184
+
+[node name="hitbox" type="Area3D" parent="." unique_id=272143149]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hitbox" unique_id=2117516287]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9109802, 0)
+shape = SubResource("BoxShape3D_ma7yh")
