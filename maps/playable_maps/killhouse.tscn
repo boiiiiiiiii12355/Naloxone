@@ -126,6 +126,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.22884, -0.38844597, 1.7581
 
 [node name="enemy_base" parent="killhouse/entities" unique_id=303559765 instance=ExtResource("8_48ds0")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 18.198807, -0.3938266, -0.20802689)
+team = "blue"
+hostiles_list = PackedStringArray("red")
 
 [node name="props" type="Node3D" parent="killhouse" unique_id=1450282211]
 

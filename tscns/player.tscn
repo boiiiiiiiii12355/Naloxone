@@ -38,7 +38,7 @@ size = Vector3(0.5, 1.655, 0.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_4pade"]
 size = Vector3(0.5, 0.4, 0.5)
 
-[node name="player" type="CharacterBody3D" unique_id=1277926118 node_paths=PackedStringArray("mySkin", "myShape", "spring", "camera_spine", "player_cam", "dialogue_cam_root", "dialogue_cam", "chest_point_target", "hp_system", "view", "inventory", "interact_ray", "pickup_hold_area", "hud", "player_body", "preselect_timer")]
+[node name="player" type="CharacterBody3D" unique_id=1277926118 node_paths=PackedStringArray("mySkin", "myShape", "spring", "camera_spine", "player_cam", "dialogue_cam_root", "dialogue_cam", "chest_point_target", "hp_system", "view", "inventory", "interact_ray", "pickup_hold_area", "hud", "player_body", "preselect_timer") groups=["entity"]]
 collision_layer = 2
 script = ExtResource("1_a7j60")
 mySkin = NodePath("MeshInstance3D")

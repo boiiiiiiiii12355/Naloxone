@@ -46,7 +46,7 @@ shape = SubResource("CapsuleShape3D_by24e")
 [node name="sight_line" type="RayCast3D" parent="." unique_id=1229142707]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.536185, 0)
 target_position = Vector3(0, 0, 103.8)
-collision_mask = 129
+collision_mask = 131
 collide_with_areas = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=7825596]
@@ -65,7 +65,7 @@ blackboard_plan = SubResource("BlackboardPlan_ma7yh")
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Grunt" unique_id=364783273]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.17793956, 1.250097, -0.3763288)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -0.033500012, 1.250097, -0.37632883)
 size = Vector3(0.025, 0.095, 0.495)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Grunt/CSGBox3D" unique_id=1760038003]

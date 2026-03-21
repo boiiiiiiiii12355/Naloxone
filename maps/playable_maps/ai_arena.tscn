@@ -74,11 +74,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.013256, 0.029395342, -9.57
 team = "red"
 hostiles_list = PackedStringArray("blue")
 
-[node name="enemy_red4" parent="entities" unique_id=1944141809 instance=ExtResource("2_hkukh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.013256, 0.029395342, -9.578301)
-team = "red"
-hostiles_list = PackedStringArray("blue")
-
 [node name="map" type="Node3D" parent="." unique_id=1109815089 groups=["level_geometry"]]
 
 [node name="floor" type="CSGBox3D" parent="map" unique_id=646095220]

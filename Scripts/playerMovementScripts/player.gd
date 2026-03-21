@@ -12,6 +12,8 @@ class_name Player
 @export var dialogue_cam : Camera3D
 @onready var coyoteTimer = $CoyoteTime
 
+var team = "red"
+var head
 var pickup_point 
 var default_camera_pos
 var randm = RandomNumberGenerator.new()
@@ -19,6 +21,7 @@ var height = 2 #the model is 2 meter tall
 
 
 func _ready():
+	head = player_body.head_tracker
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	preselect_timer.timeout.connect(preselect_timer_end)
 	mySkin.set_sorting_offset(1)

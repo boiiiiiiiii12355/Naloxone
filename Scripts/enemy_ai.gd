@@ -43,12 +43,10 @@ func _physics_process(delta: float) -> void:
 		target_pos = action_queue[-1]
 	else:
 		target_pos = main_target_pos
+		
 	if target:
 		sightline.look_at(target.head.global_position, Vector3.UP, true)
 	
-	if hp <= 0:
-		queue_free()
-		
 func velocity_computed(safe_velocity : Vector3):
 	compvelocity = safe_velocity
 	
@@ -61,15 +59,15 @@ func gravity():
 func scan_surroundings():
 	var entity_list : Array = get_tree().get_nodes_in_group("entity")
 	for i in entity_list:
-		var entity : grunt = i
+		var entity  = i
 		var entity_dist = self.global_position.distance_to(entity.global_position)
-		if entity_dist < 100 and entity != self and hostiles_list.has(entity.team):
+		if entity != self and hostiles_list.has(entity.team):
 			if potential_targets.has(entity):
 				pass
 			else:
 				add_potential_target(entity)
 			
-@export var potential_targets : Array = [null]
+@export var potential_targets : Array 
 func add_potential_target(entity_target):
 	if potential_targets.size() <= 1:
 		potential_targets.resize(1)
@@ -80,19 +78,22 @@ func add_potential_target(entity_target):
 		potential_targets[-1] = entity_target
 
 func potential_target_list_update():
-	for i in potential_targets.size():
-		if !potential_targets[i]:
-			potential_targets.pop_at(i)
+	potential_targets = potential_targets.filter(filter_invalid)
 	potential_targets.sort_custom(sort_by_target_dist)
-	target = potential_targets[0]
+	if !potential_targets.is_empty():
+		target = potential_targets[0]
+		
+func filter_invalid(value):
+	return is_instance_valid(value) and value != null
 	
 func sort_by_target_dist(a, b):
-	var dist_a = self.global_position.distance_squared_to(a.global_position)
-	var dist_b = self.global_position.distance_squared_to(b.global_position)
+	if is_instance_valid(a) and is_instance_valid(b):
+		var dist_a = self.global_position.distance_squared_to(a.global_position)
+		var dist_b = self.global_position.distance_squared_to(b.global_position)
 	
-	if dist_a < dist_b:
-		return true
-	return false
+		if dist_a < dist_b:
+			return true
+		return false
 
 
 var speed = 5
@@ -108,7 +109,7 @@ func check_action_queued():
 var main_target_pos : Vector3
 var target_pos : Vector3
 func pathfinding():
-	if action_queue.is_empty():
+	if action_queue.is_empty() and target:
 		target_pos = target.global_position
 		
 	if target_pos and action_cooldown.is_stopped():
@@ -145,25 +146,26 @@ func apply_wishvel(dir : Vector3, sped : float, decelerate : bool):
 func add_action(position : Vector3):
 	action_queue.resize(action_queue.size() + 1)
 	action_queue[-1] = position
-	print(action_queue)
 	
 #for testing combat ai only
 @export var gun_ray : RayCast3D
 func test_fire():
-	model.look_at(target.global_position, Vector3(0, 1, 0))
+	if is_instance_valid(target):
+		model.look_at(target.global_position, Vector3(0, 1, 0))
 	if gun_ray.is_colliding():
 		var colider = gun_ray.get_collider()
 		DrawLine3d.DrawLine(gun_ray.global_position, gun_ray.get_collision_point(), Color(team), 0.1)
-		if colider.is_in_group("player_hitbox"):
-			var player_tar : Player = colider.owner
-			player_tar.take_damage(10)
-		elif colider.is_in_group("entity"):
-			var entity_tar = colider.owner
-			entity_tar.hp -= 10
+		if colider.owner.is_in_group("entity"):
+			var tar = colider.owner
+			tar.take_damage(10)
 
+func take_damage(value):
+	hp -= value
+	if hp <= 0:
+		call_deferred("queue_free")
 #this section is for circle raycasting
 @export var cover_detector : Node3D
-var cover_detector_radius : float = 10.0
+var cover_detector_radius : float = 5.0
 func cover_detector_setup():
 	var ray_num = 0
 	for i in range(0, 360, 10):
@@ -180,27 +182,24 @@ func cover_detector_setup():
 	
 var cover_ray_hits : Array
 func cover_detector_process():
-	if sightline.is_colliding() and sightline.get_collider().is_in_group("entity"):
-		in_sight = true
-	else:
-		in_sight = false
-		
-	for raycast : RayCast3D in cover_detector.get_children():
-		var idx = raycast.get_index()
-		raycast.target_position = target.head.global_position - raycast.global_position
-		
-		var collide_pos = raycast.get_collision_point()
-		cover_ray_hits[idx] = collide_pos
+	if target:
+		if sightline.is_colliding() and sightline.get_collider() != null and sightline.get_collider().is_in_group("entity"):
+			in_sight = true
+		else:
+			in_sight = false
 			
-	if cover_ray_hits[0] != null:
-		cover_ray_hits.filter(null_filter)
-		cover_ray_hits.sort_custom(sort_by_self_dist_nearest)
-		DrawLine3d.DrawLine(cover_ray_hits[0], self.global_position, Color.REBECCA_PURPLE, 0.1)
-		
-func null_filter(value):
-	print(value)
-	if value != null:
-		return value
+		for raycast : RayCast3D in cover_detector.get_children():
+			var idx = raycast.get_index()
+			raycast.target_position = target.head.global_position - raycast.global_position
+			
+			var collide_pos = raycast.get_collision_point()
+			cover_ray_hits[idx] = collide_pos
+				
+		if cover_ray_hits[0] != null:
+			cover_ray_hits.filter(filter_invalid)
+			cover_ray_hits.sort_custom(sort_by_self_dist_nearest)
+			DrawLine3d.DrawLine(cover_ray_hits[0], self.global_position, Color.REBECCA_PURPLE, 0.1)
+			
 		
 func get_nearest_from_self_cover():
 	cover_ray_hits.sort_custom(sort_by_self_dist_nearest)
