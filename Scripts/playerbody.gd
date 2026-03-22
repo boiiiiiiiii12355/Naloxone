@@ -62,7 +62,7 @@ var upperchest_offset :Vector3 = Vector3(0.3, 0, 0)
 func chest_point_at(r_position : Vector3):
 	var end_position = r_position + recoil_pos 
 	var upper_torso_copy_amount = copy_transform.get("settings/0/amount")
-	copy_transform.set("settings/0/amount", lerp(upper_torso_copy_amount, equipstatus_check(false), 0.1))
+	copy_transform.set("settings/0/amount", lerp(upper_torso_copy_amount, (equipstatus_check(false) * 0.7) + 0.3, 0.1))
 	camera_point.global_position = lerp(camera_point.global_position, end_position, 0.5)
 	upper_chest_lookat.look_at(camera_point.global_position, Vector3.UP, true)
 	upper_chest_lookat.global_position = owner.camera.global_position
