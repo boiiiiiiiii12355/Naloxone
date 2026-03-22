@@ -1,63 +1,151 @@
 [gd_resource type="BehaviorTree" format=3 uid="uid://d1x35363miqf6"]
 
+[ext_resource type="Script" uid="uid://jjtmp2aeewdl" path="res://ai/ai_tasks/squad_command.gd" id="1_hjh51"]
 [ext_resource type="Script" uid="uid://benw1bpnlnn40" path="res://ai/ai_tasks/scan_for_cover.gd" id="3_cmrs0"]
 [ext_resource type="Script" uid="uid://c7xg51g7on8h0" path="res://ai/ai_tasks/attack_primary.gd" id="3_hjh51"]
 [ext_resource type="Script" uid="uid://bp6ut7to5bck6" path="res://ai/ai_tasks/aquire_target.gd" id="5_tivvm"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_tttfl"]
 
-[sub_resource type="BTAction" id="BTAction_e7e7m"]
+[sub_resource type="BBVariant" id="BBVariant_cmrs0"]
+resource_name = "commander"
+saved_value = "commander"
+type = 4
+
+[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_hjh51"]
+property = &"type"
+value = SubResource("BBVariant_cmrs0")
+
+[sub_resource type="BTAction" id="BTAction_6ap63"]
+script = ExtResource("1_hjh51")
+command = "fall in"
+
+[sub_resource type="BTAction" id="BTAction_tivvm"]
 script = ExtResource("5_tivvm")
 
-[sub_resource type="BBVariant" id="BBVariant_cmrs0"]
+[sub_resource type="BBVariant" id="BBVariant_6ap63"]
 resource_name = "true"
 saved_value = true
 type = 1
 
-[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_hjh51"]
+[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_e7e7m"]
 property = &"in_sight"
-value = SubResource("BBVariant_cmrs0")
+value = SubResource("BBVariant_6ap63")
 
-[sub_resource type="BTAction" id="BTAction_cmrs0"]
+[sub_resource type="BTAction" id="BTAction_a1aek"]
 script = ExtResource("3_cmrs0")
+metadata/_weight_ = 1.0
 
-[sub_resource type="BTAction" id="BTAction_r6i13"]
+[sub_resource type="BTAction" id="BTAction_tgqh2"]
 script = ExtResource("3_cmrs0")
 cover_type = "evasive"
 
-[sub_resource type="BTRandomSelector" id="BTRandomSelector_cmrs0"]
-children = [SubResource("BTAction_cmrs0"), SubResource("BTAction_r6i13")]
+[sub_resource type="BTRandomSelector" id="BTRandomSelector_34wxc"]
+children = [SubResource("BTAction_a1aek"), SubResource("BTAction_tgqh2")]
 
-[sub_resource type="BTSequence" id="BTSequence_tivvm"]
+[sub_resource type="BTSequence" id="BTSequence_nfxcl"]
 custom_name = "sequence - move towards target"
-children = [SubResource("BTAction_e7e7m"), SubResource("BTCheckAgentProperty_hjh51"), SubResource("BTRandomSelector_cmrs0")]
+children = [SubResource("BTAction_tivvm"), SubResource("BTCheckAgentProperty_e7e7m"), SubResource("BTRandomSelector_34wxc")]
 
-[sub_resource type="BBVariant" id="BBVariant_tivvm"]
+[sub_resource type="BBVariant" id="BBVariant_f3v4g"]
 resource_name = "true"
 saved_value = true
 type = 1
 
-[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_6ap63"]
+[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_p5q40"]
 property = &"in_sight"
-value = SubResource("BBVariant_tivvm")
+value = SubResource("BBVariant_f3v4g")
 
-[sub_resource type="BTAction" id="BTAction_a1aek"]
+[sub_resource type="BTAction" id="BTAction_0polr"]
 script = ExtResource("3_hjh51")
 
-[sub_resource type="BTCooldown" id="BTCooldown_cmrs0"]
-children = [SubResource("BTAction_a1aek")]
+[sub_resource type="BTCooldown" id="BTCooldown_fbbfy"]
+children = [SubResource("BTAction_0polr")]
 duration = 0.1
 
-[sub_resource type="BTSequence" id="BTSequence_34wxc"]
+[sub_resource type="BTSequence" id="BTSequence_x4mf5"]
 custom_name = "sequence - attack"
-children = [SubResource("BTCheckAgentProperty_6ap63"), SubResource("BTCooldown_cmrs0")]
+children = [SubResource("BTCheckAgentProperty_p5q40"), SubResource("BTCooldown_fbbfy")]
 
-[sub_resource type="BTParallel" id="BTParallel_nfxcl"]
-children = [SubResource("BTSequence_tivvm"), SubResource("BTSequence_34wxc")]
+[sub_resource type="BTParallel" id="BTParallel_q42vr"]
+custom_name = "Combat"
+children = [SubResource("BTSequence_nfxcl"), SubResource("BTSequence_x4mf5")]
+
+[sub_resource type="BTSequence" id="BTSequence_mqi5y"]
+custom_name = "Commander"
+children = [SubResource("BTCheckAgentProperty_hjh51"), SubResource("BTAction_6ap63"), SubResource("BTParallel_q42vr")]
+
+[sub_resource type="BBVariant" id="BBVariant_tivvm"]
+resource_name = "pointman"
+saved_value = "pointman"
+type = 4
+
+[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_6ap63"]
+property = &"type"
+value = SubResource("BBVariant_tivvm")
+
+[sub_resource type="BTAction" id="BTAction_niwkg"]
+script = ExtResource("5_tivvm")
+
+[sub_resource type="BBVariant" id="BBVariant_we8yb"]
+resource_name = "true"
+saved_value = true
+type = 1
+
+[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_xn40f"]
+property = &"in_sight"
+value = SubResource("BBVariant_we8yb")
+
+[sub_resource type="BTAction" id="BTAction_r1uwi"]
+script = ExtResource("3_cmrs0")
+metadata/_weight_ = 1.0
+
+[sub_resource type="BTAction" id="BTAction_yop8y"]
+script = ExtResource("3_cmrs0")
+cover_type = "evasive"
+
+[sub_resource type="BTRandomSelector" id="BTRandomSelector_463h5"]
+children = [SubResource("BTAction_r1uwi"), SubResource("BTAction_yop8y")]
+
+[sub_resource type="BTSequence" id="BTSequence_2v84y"]
+custom_name = "sequence - move towards target"
+children = [SubResource("BTAction_niwkg"), SubResource("BTCheckAgentProperty_xn40f"), SubResource("BTRandomSelector_463h5")]
+
+[sub_resource type="BBVariant" id="BBVariant_gjoqq"]
+resource_name = "true"
+saved_value = true
+type = 1
+
+[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_rmshf"]
+property = &"in_sight"
+value = SubResource("BBVariant_gjoqq")
+
+[sub_resource type="BTAction" id="BTAction_b3acj"]
+script = ExtResource("3_hjh51")
+
+[sub_resource type="BTCooldown" id="BTCooldown_6sh4f"]
+children = [SubResource("BTAction_b3acj")]
+duration = 0.1
+
+[sub_resource type="BTSequence" id="BTSequence_upuyx"]
+custom_name = "sequence - attack"
+children = [SubResource("BTCheckAgentProperty_rmshf"), SubResource("BTCooldown_6sh4f")]
+
+[sub_resource type="BTParallel" id="BTParallel_70r2v"]
+custom_name = "Combat"
+children = [SubResource("BTSequence_2v84y"), SubResource("BTSequence_upuyx")]
+
+[sub_resource type="BTSequence" id="BTSequence_2ny6p"]
+custom_name = "Pointman"
+children = [SubResource("BTCheckAgentProperty_6ap63"), SubResource("BTParallel_70r2v")]
+
+[sub_resource type="BTParallel" id="BTParallel_cmrs0"]
+custom_name = "Class root"
+children = [SubResource("BTSequence_mqi5y"), SubResource("BTSequence_2ny6p")]
 
 [sub_resource type="BTSelector" id="BTSelector_m0450"]
 custom_name = "root"
-children = [SubResource("BTParallel_nfxcl")]
+children = [SubResource("BTParallel_cmrs0")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_tttfl")
