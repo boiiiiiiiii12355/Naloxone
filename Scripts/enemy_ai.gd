@@ -28,7 +28,7 @@ func _ready() -> void:
 	print(owner)
 	nav_agent.connect("velocity_computed", velocity_computed)
 	state_display.text = "Team " + team
-	cover_detector_setup()
+	environment_detector_setup()
 	find_team()
 	
 @export var curr_action : String
@@ -39,7 +39,7 @@ func _physics_process(delta: float) -> void:
 	ai_process()
 
 func scan_area():
-	#cover_detector_process()
+	environment_detector_process()
 	#potential_target_list_update()
 	pass
 	
@@ -70,7 +70,7 @@ func gravity():
 	else:
 		wishvelocity.y = 0
 	
-			
+	
 @export var squadmates : Array
 var commander : Object 
 func find_team():
@@ -103,7 +103,10 @@ func potential_target_list_update():
 		target_kill = potential_targets[0]
 		
 func filter_invalid(value):
-	return is_instance_valid(value) and value != null
+	return is_instance_valid(value)
+	
+func filter_null(value):
+	return value != null
 	
 func sort_by_target_dist(a, b):
 	if is_instance_valid(a) and is_instance_valid(b):
@@ -189,30 +192,64 @@ func take_damage(value):
 		call_deferred("queue_free")
 	
 	
-#this section is for cover raycasting
+#this section is for environment raycasting
 @export var cover_detector : Node3D
-var cover_detector_radius : float = 5.0
-func cover_detector_setup():
+@export var hotzone_detector : Node3D
+var cover_detector_radius : float = 30.0
+func environment_detector_setup():
 	var ray_num = 0
-	for i in range(0, 360, 10):
+	for i in range(0, 360, 5):
 		var cover_detector_raycast : RayCast3D = RayCast3D.new()
 		cover_detector.add_child(cover_detector_raycast)
 		
 		var ray_pos_x = cos(i) * cover_detector_radius
 		var ray_pos_z = sin(i) * cover_detector_radius
 		
-		cover_detector_raycast.position = Vector3(ray_pos_x, 2, ray_pos_z)
+		cover_detector_raycast.position = Vector3(ray_pos_x, 0, ray_pos_z)
 		cover_detector_raycast.name = "r" + str(ray_num)
 		ray_num += 1
 	cover_ray_hits.resize(cover_detector.get_children().size())
 	
-var cover_ray_hits : Array
-func cover_detector_process():
+	ray_num = 0
+	for i in range(0, 360, 5):
+		var hotzone_detector_raycast : RayCast3D = RayCast3D.new()
+		hotzone_detector.add_child(hotzone_detector_raycast)
+		hotzone_detector_raycast.position = Vector3.ZERO
+		hotzone_detector_raycast.target_position = Vector3(0, 0, cover_detector_radius)
+		hotzone_detector_raycast.rotation_degrees.y = i
+		hotzone_detector_raycast.name = "r" + str(ray_num)
+		ray_num += 1
+
+func environment_detector_process():
 	if sightline.is_colliding() and sightline.get_collider() != null and sightline.get_collider().is_in_group("entity"):
 		in_sight = true
 	else:
 		in_sight = false
+	#cover_detect()
+	hot_zone_detect()
+	
 		
+var hot_zone_array : Array
+func hot_zone_detect():
+	hot_zone_array.resize(hotzone_detector.get_children().size())
+	for ray : RayCast3D in hotzone_detector.get_children():
+		var idx = ray.get_index()
+		hot_zone_array[idx] = ray.get_collision_point()
+		
+	hot_zone_array = hot_zone_array.filter(filter_null)
+	hot_zone_array.sort_custom(sort_by_self_dist_furtherest)
+	
+	if !hot_zone_array.is_empty():
+		
+		DrawLine3d.DrawLine(self.head.global_position, hot_zone_array[0], Color.PURPLE, 0.1)
+		DrawLine3d.DrawLine(self.head.global_position, hot_zone_array[1], Color.PURPLE, 0.1)
+		DrawLine3d.DrawLine(self.head.global_position, hot_zone_array[2], Color.PURPLE, 0.1)
+		DrawLine3d.DrawLine(self.head.global_position, hot_zone_array[3], Color.PURPLE, 0.1)
+		DrawLine3d.DrawLine(self.head.global_position, hot_zone_array[4], Color.PURPLE, 0.1)
+		
+	
+var cover_ray_hits : Array
+func cover_detect():
 	if target_kill:
 		for raycast : RayCast3D in cover_detector.get_children():
 			var idx = raycast.get_index()
@@ -225,8 +262,7 @@ func cover_detector_process():
 			cover_ray_hits.filter(filter_invalid)
 			cover_ray_hits.sort_custom(sort_by_self_dist_nearest)
 			DrawLine3d.DrawLine(cover_ray_hits[0], self.global_position, Color.REBECCA_PURPLE, 0.1)
-				
-		
+			
 func get_nearest_from_self_cover():
 	cover_ray_hits.sort_custom(sort_by_self_dist_nearest)
 	return cover_ray_hits[0]

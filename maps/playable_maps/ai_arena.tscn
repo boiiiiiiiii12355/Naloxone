@@ -45,21 +45,21 @@ shadow_enabled = true
 [node name="entities" type="Node3D" parent="." unique_id=1656849088]
 
 [node name="enemy_blue_com" parent="entities" unique_id=303559765 instance=ExtResource("2_hkukh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.603209, 0.02939725, -0.21913815)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.081799, 0.02939725, -1.1120038)
 type = "commander"
 squad = "delta"
 team = "blue"
 hostiles_list = PackedStringArray("red")
 
-[node name="enemy_blue_pt" parent="entities" unique_id=302429996 instance=ExtResource("2_hkukh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.294586, 0.02939725, -1.1900244)
+[node name="enemy_blue_com2" parent="entities" unique_id=441486691 instance=ExtResource("2_hkukh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.657011, 0.02939725, -2.1732163)
 type = "pointman"
 squad = "delta"
 team = "blue"
 hostiles_list = PackedStringArray("red")
 
-[node name="enemy_blue_pt2" parent="entities" unique_id=1104785451 instance=ExtResource("2_hkukh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.259697, 0.02939725, 2.3900194)
+[node name="enemy_blue_com3" parent="entities" unique_id=571068922 instance=ExtResource("2_hkukh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.520735, 0.029396296, 6.3028035)
 type = "pointman"
 squad = "delta"
 team = "blue"

@@ -13,7 +13,7 @@ height = 1.6513672
 [sub_resource type="BoxShape3D" id="BoxShape3D_ma7yh"]
 size = Vector3(0.736, 1.69, 0.615)
 
-[node name="enemy_base" type="CharacterBody3D" unique_id=303559765 node_paths=PackedStringArray("model", "sightline", "nav_agent", "action_cooldown", "area_scanner", "head", "state_display", "gun_ray", "cover_detector") groups=["entity"]]
+[node name="enemy_base" type="CharacterBody3D" unique_id=303559765 node_paths=PackedStringArray("model", "sightline", "nav_agent", "action_cooldown", "area_scanner", "head", "state_display", "gun_ray", "cover_detector", "hotzone_detector") groups=["entity"]]
 collision_layer = 128
 script = ExtResource("1_by24e")
 model = NodePath("Grunt")
@@ -24,13 +24,14 @@ area_scanner = NodePath("area_scanner")
 head = NodePath("sight_line")
 state_display = NodePath("state_display")
 gun_ray = NodePath("Grunt/CSGBox3D/RayCast3D")
-cover_detector = NodePath("cover_detector_circle")
+cover_detector = NodePath("area_scanner")
+hotzone_detector = NodePath("hotzone_scanner")
 
 [node name="area_scanner" type="Node3D" parent="." unique_id=2145846045]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5457393, 0)
 
-[node name="corner_scanner" type="Node3D" parent="." unique_id=568657196]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2061272, 0)
+[node name="hotzone_scanner" type="Node3D" parent="." unique_id=1591821679]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5457393, 0)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=677553047]
 path_desired_distance = 0.5
