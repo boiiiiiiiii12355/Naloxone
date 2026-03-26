@@ -5,8 +5,8 @@
 [resource]
 script = ExtResource("1_ffqun")
 ply_mousesensitivity = 1.0
-ply_maxlookangle_down = -70
-ply_maxlookangle_up = 70
+ply_maxlookangle_down = -80
+ply_maxlookangle_up = 80
 ply_ylookspeed = 0.5
 ply_xlookspeed = 0.5
 ply_accelerate = 10

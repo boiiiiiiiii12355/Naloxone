@@ -4,21 +4,21 @@ class_name  fs_12
 @export var gun_ray_collection : Node3D
 
 func play_equip_animation():
-	get_tree().call_group("player_animations", "play_arm_animation", "player_animation/FS_12_equip")
+	get_tree().call_group("player_animations", "play_arm_animation", "FS_12_equip")
 	animation_player.play("fs_12_equip_gun")
 func  play_store_animation():
 	#get_tree().call_group("player_animations", "play_arm_animation", "p2000_store")
 	pass
 	
 func play_reload_animation():
-	get_tree().call_group("player_animations", "play_arm_animation", "player_animation/p7_quiver_reload")
+	get_tree().call_group("player_animations", "play_arm_animation", "p7_quiver_reload")
 	animation_player.play("p2000_reload_anim")
 	animation_player.seek(0)
 	
 	
 func  play_fire_animation():
 	gun_shot_sound.play(0)
-	get_tree().call_group("player_animations", "play_arm_animation_from_time", "player_animation/FS_12_shoot", 0.045)
+	get_tree().call_group("player_animations", "play_arm_animation_from_time", "FS_12_shoot", 0.045)
 	animation_player.play("fs_12_shoot_gun")
 	animation_player.seek(0)
 	

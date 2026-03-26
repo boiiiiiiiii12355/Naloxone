@@ -13,7 +13,7 @@ height = 1.6513672
 [sub_resource type="BoxShape3D" id="BoxShape3D_ma7yh"]
 size = Vector3(0.736, 1.69, 0.615)
 
-[node name="enemy_base" type="CharacterBody3D" unique_id=303559765 node_paths=PackedStringArray("model", "sightline", "nav_agent", "action_cooldown", "area_scanner", "head", "state_display", "gun_ray", "cover_detector", "hotzone_detector") groups=["entity"]]
+[node name="enemy_base" type="CharacterBody3D" unique_id=303559765 node_paths=PackedStringArray("model", "sightline", "nav_agent", "action_cooldown", "area_scanner", "head", "bodycam", "state_display", "gun_ray", "cover_detector", "hotzone_detector") groups=["combatant"]]
 collision_layer = 128
 script = ExtResource("1_by24e")
 model = NodePath("Grunt")
@@ -22,16 +22,17 @@ nav_agent = NodePath("NavigationAgent3D")
 action_cooldown = NodePath("action_cooldown")
 area_scanner = NodePath("area_scanner")
 head = NodePath("sight_line")
+bodycam = NodePath("Grunt/Camera3D")
 state_display = NodePath("state_display")
 gun_ray = NodePath("Grunt/CSGBox3D/RayCast3D")
 cover_detector = NodePath("area_scanner")
 hotzone_detector = NodePath("hotzone_scanner")
 
 [node name="area_scanner" type="Node3D" parent="." unique_id=2145846045]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5457393, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.46503174, 0)
 
 [node name="hotzone_scanner" type="Node3D" parent="." unique_id=1591821679]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5457393, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.966339, 0)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=677553047]
 path_desired_distance = 0.5
@@ -49,9 +50,8 @@ shape = SubResource("CapsuleShape3D_by24e")
 
 [node name="sight_line" type="RayCast3D" parent="." unique_id=1229142707]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.536185, 0)
-target_position = Vector3(0, 0, 103.8)
+target_position = Vector3(0, 0, 1000)
 collision_mask = 131
-collide_with_areas = true
 
 [node name="action_cooldown" type="Timer" parent="." unique_id=513505029]
 wait_time = 0.5
@@ -65,7 +65,7 @@ blackboard_plan = SubResource("BlackboardPlan_ma7yh")
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Grunt" unique_id=364783273]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -0.033500012, 1.250097, -0.37632883)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.08649616, 1.3336606, -0.37632883)
 size = Vector3(0.025, 0.095, 0.495)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Grunt/CSGBox3D" unique_id=1760038003]
@@ -77,6 +77,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.25278306)
 target_position = Vector3(0, 0, 100)
 collision_mask = 33
 collide_with_areas = true
+
+[node name="Camera3D" type="Camera3D" parent="Grunt" unique_id=930248696]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5533003, 0)
+fov = 110.48975
+
+[node name="view" type="Area3D" parent="Grunt" unique_id=1325988015]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grunt/view" unique_id=1474167314]
 
 [node name="cover_detector_circle" type="Node3D" parent="." unique_id=827923710]
 

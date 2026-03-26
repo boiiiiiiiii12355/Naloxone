@@ -8,6 +8,7 @@ func  _tick(delta: float) -> Status:
 
 func command_call(command_text : String):
 	var squadmates = agent.squadmates
+	squadmates = squadmates.filter(agent.filter_invalid)
 	if command_text == "fall in":
 		for mate : grunt in squadmates:
 			mate.target_follow_dist = 10

@@ -30,6 +30,10 @@ var falling_blend = "parameters/falling_blend/blend_amount"
 var fall_landing = "parameters/fall_landing/request"
 var dialogue_anim_seek = "parameters/dialogue_anim_seek/seek_request"
 var dialogue_pose_blend = "parameters/dialogue_pose_blend/blend_amount"
+var up_down_look_blend = "parameters/up_down/blend_position"
+var free_lean_blend = "parameters/free_lean_blend/blend_amount"
+var free_lean_blend2d = "parameters/free_lean/blend_position"
+
 
 #these are variables for physical slot nodes
 @export var equip_node : Node3D
@@ -61,14 +65,30 @@ var recoil_pos : Vector3 = Vector3.ZERO
 var upperchest_offset :Vector3 = Vector3(0.3, 0, 0)
 func chest_point_at(r_position : Vector3):
 	var end_position = r_position + recoil_pos 
-	var upper_torso_copy_amount = copy_transform.get("settings/0/amount")
-	copy_transform.set("settings/0/amount", lerp(upper_torso_copy_amount, (equipstatus_check(false) * 0.7) + 0.3, 0.1))
 	camera_point.global_position = lerp(camera_point.global_position, end_position, 0.5)
 	upper_chest_lookat.look_at(camera_point.global_position, Vector3.UP, true)
 	upper_chest_lookat.global_position = owner.camera.global_position
 	recoil_process()
 	apply_camera_influence()
 	turn_body_to_cam()
+	arms_to_cam()
+	
+func arms_to_cam():
+	animation_tree.set(up_down_look_blend, camera_spine.global_rotation_degrees.x)
+
+var free_lean_pos : Vector2 = Vector2.ZERO
+func free_lean():
+	animation_tree.set(free_lean_blend, 1)
+	animation_tree.set(free_lean_blend2d, free_lean_pos)
+	free_lean_pos = free_lean_pos.clamp(Vector2(-1, -1), Vector2(1,1))
+	
+	var dir : Vector2 = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	free_lean_pos += 0.05 *  dir
+	
+func free_lean_cancel():
+	animation_tree.set(free_lean_blend, 0)
+	animation_tree.set(free_lean_blend2d, free_lean_pos)
+	free_lean_pos = Vector2.ZERO
 	
 var alive : bool = true
 func player_dead():
@@ -96,7 +116,8 @@ func recoil_process():
 		gun_point.global_position = lerp(gun_point.global_position, camera_point.global_position, 0.1)
 	
 func turn_body_to_cam():
-	legs_point.global_position = lerp(legs_point.global_position, camera_point.global_position, 0.05)
+	if !free_lean_pos:
+		legs_point.global_position = lerp(legs_point.global_position, camera_point.global_position, 0.05)
 	if get_parent().velocity:
 		legs_point.global_position = lerp(legs_point.global_position, camera_point.global_position, 0.1)
 	

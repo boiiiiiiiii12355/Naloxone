@@ -19,12 +19,12 @@ script = ExtResource("1_hjh51")
 command = "fall in"
 
 [sub_resource type="BBVariant" id="BBVariant_f3v4g"]
-resource_name = "true"
-saved_value = true
-type = 1
+resource_name = "<null>"
+saved_value = null
 
 [sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_p5q40"]
-property = &"in_sight"
+property = &"target_insight"
+check_type = 5
 value = SubResource("BBVariant_f3v4g")
 
 [sub_resource type="BTAction" id="BTAction_0polr"]
@@ -32,7 +32,7 @@ script = ExtResource("3_hjh51")
 
 [sub_resource type="BTCooldown" id="BTCooldown_fbbfy"]
 children = [SubResource("BTAction_0polr")]
-duration = 0.1
+duration = 0.3
 
 [sub_resource type="BTSequence" id="BTSequence_x4mf5"]
 custom_name = "sequence - attack"
@@ -55,25 +55,25 @@ type = 4
 property = &"type"
 value = SubResource("BBVariant_tivvm")
 
-[sub_resource type="BBVariant" id="BBVariant_gjoqq"]
-resource_name = "true"
-saved_value = true
-type = 1
+[sub_resource type="BBVariant" id="BBVariant_r6i13"]
+resource_name = "<null>"
+saved_value = null
 
-[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_rmshf"]
-property = &"in_sight"
-value = SubResource("BBVariant_gjoqq")
+[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_cmrs0"]
+property = &"target_insight"
+check_type = 5
+value = SubResource("BBVariant_r6i13")
 
 [sub_resource type="BTAction" id="BTAction_b3acj"]
 script = ExtResource("3_hjh51")
 
 [sub_resource type="BTCooldown" id="BTCooldown_6sh4f"]
 children = [SubResource("BTAction_b3acj")]
-duration = 0.1
+duration = 0.3
 
 [sub_resource type="BTSequence" id="BTSequence_upuyx"]
 custom_name = "sequence - attack"
-children = [SubResource("BTCheckAgentProperty_rmshf"), SubResource("BTCooldown_6sh4f")]
+children = [SubResource("BTCheckAgentProperty_cmrs0"), SubResource("BTCooldown_6sh4f")]
 
 [sub_resource type="BTParallel" id="BTParallel_70r2v"]
 custom_name = "Combat"

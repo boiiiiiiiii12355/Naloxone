@@ -38,7 +38,7 @@ size = Vector3(0.5, 1.655, 0.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_4pade"]
 size = Vector3(0.5, 0.4, 0.5)
 
-[node name="player" type="CharacterBody3D" unique_id=1277926118 node_paths=PackedStringArray("mySkin", "myShape", "spring", "camera_spine", "player_cam", "dialogue_cam_root", "dialogue_cam", "chest_point_target", "hp_system", "view", "inventory", "interact_ray", "pickup_hold_area", "hud", "player_body", "preselect_timer") groups=["entity"]]
+[node name="player" type="CharacterBody3D" unique_id=1277926118 node_paths=PackedStringArray("mySkin", "myShape", "spring", "camera_spine", "player_cam", "dialogue_cam_root", "dialogue_cam", "chest_point_target", "hp_system", "view", "inventory", "interact_ray", "pickup_hold_area", "hud", "player_body", "preselect_timer") groups=["combatant"]]
 collision_layer = 2
 script = ExtResource("1_a7j60")
 mySkin = NodePath("MeshInstance3D")
@@ -59,7 +59,7 @@ hud = NodePath("HUD")
 player_body = NodePath("GR_subject_203")
 preselect_timer = NodePath("preselect_timer")
 
-[node name="GR_subject_203" parent="." unique_id=1394356436 node_paths=PackedStringArray("camera_spine", "hud", "player_cam", "dialogue_cam_root", "gun_ray") instance=ExtResource("4_k0k4f")]
+[node name="GR_subject_203" parent="." unique_id=338692700 node_paths=PackedStringArray("camera_spine", "hud", "player_cam", "dialogue_cam_root", "gun_ray") instance=ExtResource("4_k0k4f")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 rotation_edit_mode = 0
 camera_spine = NodePath("../TwistPivot")
@@ -116,6 +116,7 @@ rotation_edit_mode = 1
 [node name="view" type="Camera3D" parent="TwistPivot/view_offset" unique_id=1795726355]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.007323861, -0.065914094)
 current = true
+fov = 90.0
 near = 0.01
 script = ExtResource("6_hru13")
 

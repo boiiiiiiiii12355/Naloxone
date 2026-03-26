@@ -30,7 +30,7 @@ func _input(event):
 		
 	if event.is_action_pressed("click"):
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
-			#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			pass
 			
 	if event.is_action_pressed("restart"):
@@ -62,12 +62,16 @@ func InputKeys():
 		input_tick()
 
 func input_tick():
-	stats.sidemove += int(stats.ply_sidespeed) * (int(Input.get_action_strength("move_left") * 50))
-	stats.sidemove -= int(stats.ply_sidespeed) * (int(Input.get_action_strength("move_right") * 50))
+	if !Input.is_action_pressed("free_lean"):
+		player_body.free_lean_cancel()
+		stats.sidemove += int(stats.ply_sidespeed) * (int(Input.get_action_strength("move_left") * 50))
+		stats.sidemove -= int(stats.ply_sidespeed) * (int(Input.get_action_strength("move_right") * 50))
+		
+		stats.forwardmove += int(stats.ply_forwardspeed) * (int(Input.get_action_strength("move_forward") * 50))
+		stats.forwardmove -= int(stats.ply_backspeed) * (int(Input.get_action_strength("move_back") * 50))
 	
-	stats.forwardmove += int(stats.ply_forwardspeed) * (int(Input.get_action_strength("move_forward") * 50))
-	stats.forwardmove -= int(stats.ply_backspeed) * (int(Input.get_action_strength("move_back") * 50))
-	
+	else:
+		player_body.free_lean()
 	# Clamp that shit so it doesn't go too high
 	movement_local_dir = Vector2.ZERO
 	if Input.is_action_just_released("move_left") or Input.is_action_just_released("move_right"):

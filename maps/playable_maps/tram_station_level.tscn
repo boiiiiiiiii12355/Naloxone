@@ -31,6 +31,11 @@ volumetric_fog_enabled = true
 volumetric_fog_density = 0.0171
 volumetric_fog_emission = Color(0.42749333, 0.427493, 0.42749295, 1)
 
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_hc6mv"]
+auto_exposure_enabled = true
+dof_blur_near_enabled = true
+dof_blur_near_distance = 0.57
+
 [node name="tram_station_level" type="Node3D" unique_id=1466349213 node_paths=PackedStringArray("objects", "particles", "player")]
 script = ExtResource("1_pd6gb")
 level_name = "tram_station"
@@ -47,6 +52,7 @@ directional_shadow_max_distance = 8192.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1701510486]
 environment = SubResource("Environment_uphtb")
+camera_attributes = SubResource("CameraAttributesPractical_hc6mv")
 
 [node name="player" parent="." unique_id=1277926118 instance=ExtResource("2_4hwk0")]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, -45.26989, -0.66324353, -14.535689)

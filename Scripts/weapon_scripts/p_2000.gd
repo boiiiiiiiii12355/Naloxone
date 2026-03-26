@@ -20,21 +20,21 @@ func _ready() -> void:
 	
 func play_equip_animation():
 	animation_player.play("p2000_gun_equip")
-	get_tree().call_group("player_animations", "play_arm_animation", "player_animation/p2000_equip")
+	get_tree().call_group("player_animations", "play_arm_animation", "p2000_equip")
 	
 func  play_store_animation():
 	#get_tree().call_group("player_animations", "play_arm_animation", "p2000_store")
 	pass
 	
 func play_reload_animation():
-	get_tree().call_group("player_animations", "play_arm_animation", "player_animation/p2000_reload")
+	get_tree().call_group("player_animations", "play_arm_animation", "p2000_reload")
 	animation_player.play("p2000_reload_baked")
 	animation_player.seek(0)
 	
 func play_fire_animation():
 	gun_shot_sound.play(0)
 	animation_player.play("fire")
-	get_tree().call_group("player_animations", "play_arm_animation_from_time", "player_animation/p2000_shoot", 0)
+	get_tree().call_group("player_animations", "play_arm_animation_from_time", "p2000_shoot", 0)
 	
 	
 func object_function(check : bool):

@@ -15,25 +15,28 @@ class_name grunt
 @export var cover_ignore_dist = 2
 @export var hostiles_list : PackedStringArray 
 @export var head : Node3D
-var hp = max_hp
+@export var hp = max_hp
 var player_spotted : bool = false
 var player_spot
 var wishvelocity : Vector3 = Vector3.ZERO
 var compvelocity : Vector3 = Vector3.ZERO
 var target_follow_dist : float  = 0.0
 var target_follow
-var target_kill
+var target_insight
+var lKP : Vector3 
 
+@export var bodycam : Camera3D
 func _ready() -> void:
 	print(owner)
 	nav_agent.connect("velocity_computed", velocity_computed)
 	state_display.text = "Team " + team
 	environment_detector_setup()
-	find_team()
+	find_team_and_enemy()
+	if type == "commander":
+		bodycam.current = false
 	
 @export var curr_action : String
 @export var state_display : Label3D
-@export var in_sight : bool = false
 func _physics_process(delta: float) -> void:
 	phy_stuff()
 	ai_process()
@@ -57,8 +60,6 @@ func phy_stuff():
 	else:
 		target_pos = main_target_pos
 		
-	if target_kill:
-		sightline.look_at(target_kill.head.global_position, Vector3.UP, true)
 	
 	
 func velocity_computed(safe_velocity : Vector3):
@@ -72,35 +73,26 @@ func gravity():
 	
 	
 @export var squadmates : Array
+@export var enemylist : Array
 var commander : Object 
-func find_team():
-	for entity in get_tree().get_nodes_in_group("entity"):
-		if entity.team == self.team and entity.squad == self.squad and type != "commander":
+func find_team_and_enemy():
+	for combatant in get_tree().get_nodes_in_group("combatant"):
+		#finding team
+		if combatant.team == self.team and combatant.squad == self.squad and self.type != "commander":
 			squadmates.resize(squadmates.size() + 1)
-			squadmates[-1] = entity
-			if entity.type == "commander":
-				commander = entity
+			squadmates[-1] = combatant
+			if combatant.type == "commander":
+				commander = combatant
 		
-		if self.type == "commander" and entity.type != "commander":
+		if self.type == "commander" and combatant.type != "commander" and combatant.team == team:
 			squadmates.resize(squadmates.size() + 1)
-			squadmates[-1] = entity
+			squadmates[-1] = combatant
 		
+		#finding enemy
+		if combatant.team != self.team:
+			enemylist.resize(enemylist.size() + 1)
+			enemylist[-1] = combatant
 		
-@export var potential_targets : Array 
-func add_potential_target(entity_target):
-	if potential_targets.size() <= 1:
-		potential_targets.resize(1)
-	if ! potential_targets[-1]:
-		potential_targets[-1] = entity_target
-	else:
-		potential_targets.resize(potential_targets.size() + 1)
-		potential_targets[-1] = entity_target
-
-func potential_target_list_update():
-	potential_targets = potential_targets.filter(filter_invalid)
-	potential_targets.sort_custom(sort_by_target_dist)
-	if !potential_targets.is_empty():
-		target_kill = potential_targets[0]
 		
 func filter_invalid(value):
 	return is_instance_valid(value)
@@ -131,6 +123,7 @@ func check_action_queued():
 var main_target_pos : Vector3
 var target_pos : Vector3
 func pathfinding():
+	var dir : Vector3 
 	if action_queue.is_empty() and target_follow:
 		target_pos = target_follow.global_position
 		
@@ -138,7 +131,7 @@ func pathfinding():
 		nav_agent.target_position =  target_pos
 		var next_path_pos : Vector3 = nav_agent.get_next_path_position()
 		var dist_from_tar = target_follow.global_position.distance_squared_to(self.global_position)
-		var dir : Vector3 = self.global_position.direction_to(next_path_pos)
+		dir = self.global_position.direction_to(next_path_pos)
 		apply_wishvel(dir, speed / 3, false)
 		
 		if target_follow_dist >= dist_from_tar:
@@ -149,12 +142,15 @@ func pathfinding():
 			apply_wishvel(dir, speed, true)
 			delete_curr_action()
 			
-		#rotate towards movement dir
-		if ! in_sight:
-			var rotation_speed = 0.1
+	if target_insight:
+		dir = self.global_position.direction_to(target_insight.global_position)
+	elif ! hot_zone_array.is_empty():
+		dir = self.global_position.direction_to(hot_zone_array[0])
 			
-			var target_rotation = dir.signed_angle_to(Vector3.MODEL_REAR, Vector3.DOWN)
-			model.rotation.y = lerp(model.rotation.y, target_rotation, rotation_speed)
+	#rotate towards dir
+	var rotation_speed = 0.3
+	var target_rotation = dir.signed_angle_to(Vector3.MODEL_REAR, Vector3.DOWN)
+	model.rotation.y = lerp(model.rotation.y, target_rotation, rotation_speed)
 		
 func delete_curr_action():
 	if !action_queue.is_empty():
@@ -177,12 +173,10 @@ func add_action(position : Vector3):
 #for testing combat ai only
 @export var gun_ray : RayCast3D
 func test_fire():
-	if is_instance_valid(target_kill):
-		model.look_at(target_kill.global_position, Vector3(0, 1, 0))
 	if gun_ray.is_colliding():
 		var colider = gun_ray.get_collider()
 		DrawLine3d.DrawLine(gun_ray.global_position, gun_ray.get_collision_point(), Color(team), 0.1)
-		if colider.owner.is_in_group("entity"):
+		if colider.owner.is_in_group("combatant"):
 			var tar = colider.owner
 			tar.take_damage(30)
 
@@ -219,15 +213,34 @@ func environment_detector_setup():
 		hotzone_detector_raycast.rotation_degrees.y = i
 		hotzone_detector_raycast.name = "r" + str(ray_num)
 		ray_num += 1
-
+	
+	
 func environment_detector_process():
-	if sightline.is_colliding() and sightline.get_collider() != null and sightline.get_collider().is_in_group("entity"):
-		in_sight = true
-	else:
-		in_sight = false
 	#cover_detect()
 	hot_zone_detect()
+	sight_process()
 	
+	
+
+func sight_process():
+	if target_insight:
+		lKP = target_insight.global_position
+		sightline.look_at(target_insight.head.global_position, Vector3.UP, true)
+		if sightline.is_colliding():
+			var colider = sightline.get_collider()
+			if colider == target_insight and !target_insight:
+				target_insight = null
+					
+	if target_insight == null:
+		enemylist = enemylist.filter(filter_invalid)
+		for enemy in enemylist:
+			sightline.look_at(enemy.head.global_position, Vector3.UP, true)
+			if sightline.is_colliding():
+				var colider = sightline.get_collider()
+				if colider == enemy and !target_insight:
+					target_insight = enemy
+					
+
 		
 var hot_zone_array : Array
 func hot_zone_detect():
@@ -239,21 +252,13 @@ func hot_zone_detect():
 	hot_zone_array = hot_zone_array.filter(filter_null)
 	hot_zone_array.sort_custom(sort_by_self_dist_furtherest)
 	
-	if !hot_zone_array.is_empty():
-		
-		DrawLine3d.DrawLine(self.head.global_position, hot_zone_array[0], Color.PURPLE, 0.1)
-		DrawLine3d.DrawLine(self.head.global_position, hot_zone_array[1], Color.PURPLE, 0.1)
-		DrawLine3d.DrawLine(self.head.global_position, hot_zone_array[2], Color.PURPLE, 0.1)
-		DrawLine3d.DrawLine(self.head.global_position, hot_zone_array[3], Color.PURPLE, 0.1)
-		DrawLine3d.DrawLine(self.head.global_position, hot_zone_array[4], Color.PURPLE, 0.1)
-		
 	
 var cover_ray_hits : Array
 func cover_detect():
-	if target_kill:
+	if target_insight:
 		for raycast : RayCast3D in cover_detector.get_children():
 			var idx = raycast.get_index()
-			raycast.target_position = target_kill.head.global_position - raycast.global_position
+			raycast.target_position = target_insight.head.global_position - raycast.global_position
 			
 			var collide_pos = raycast.get_collision_point()
 			cover_ray_hits[idx] = collide_pos
