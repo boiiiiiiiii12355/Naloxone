@@ -40,6 +40,7 @@ func play_fire_animation():
 func object_function(check : bool):
 	if !check and equip_timer.is_stopped() and ammunition and fire_rate_timer.is_stopped():
 		play_fire_animation()
+		
 		ammunition -= 1
 		animation_player.seek(0)
 		check_hit()
@@ -59,6 +60,7 @@ func fire_type():
 	
 func object_reload():
 	play_reload_animation()
+	get_tree().call_group("player_animations", "chest_look_at_stop", 2.0)
 	await animation_player.animation_finished
 	ammunition = mag_size
 

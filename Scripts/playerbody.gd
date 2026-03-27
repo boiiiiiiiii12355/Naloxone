@@ -71,14 +71,13 @@ func chest_point_at(r_position : Vector3):
 	recoil_process()
 	apply_camera_influence()
 	turn_body_to_cam()
-	arms_to_cam()
 	
-func arms_to_cam():
-	animation_tree.set(up_down_look_blend, camera_spine.global_rotation_degrees.x)
 
 var free_lean_pos : Vector2 = Vector2.ZERO
 func free_lean():
-	animation_tree.set(free_lean_blend, 1)
+	if animation_tree.get(free_lean_blend) == 0:
+		var free_lean_tween : Tween = get_tree().create_tween()
+		free_lean_tween.tween_method(free_lean_set, 0.0, 1.0, 0.5)
 	animation_tree.set(free_lean_blend2d, free_lean_pos)
 	free_lean_pos = free_lean_pos.clamp(Vector2(-1, -1), Vector2(1,1))
 	
@@ -86,9 +85,16 @@ func free_lean():
 	free_lean_pos += 0.05 *  dir
 	
 func free_lean_cancel():
-	animation_tree.set(free_lean_blend, 0)
+	if animation_tree.get(free_lean_blend) == 1:
+		var free_lean_tween : Tween = get_tree().create_tween()
+		free_lean_tween.tween_method(free_lean_set, 1.0, 0.0, 0.5)
+		await  free_lean_tween.finished
+		free_lean_pos = Vector2.ZERO
 	animation_tree.set(free_lean_blend2d, free_lean_pos)
-	free_lean_pos = Vector2.ZERO
+	
+	
+func free_lean_set(value : float):
+	animation_tree.set(free_lean_blend, value)
 	
 var alive : bool = true
 func player_dead():
@@ -204,6 +210,22 @@ func play_arm_animation(name : String):
 func play_arm_animation_from_time(name : String, time : float):
 	arms_action.set_animation(name)
 	animation_tree.set(arms_action_timeseek, time)
+
+@export var animationplayer : AnimationPlayer
+func chest_look_at_stop(time : float):
+	var copy_tween_start : Tween = get_tree().create_tween()
+	copy_tween_start.set_trans(Tween.TRANS_BACK)
+	copy_tween_start.tween_method(copy_transform_set, 1.0, 0.0, .5)
+	await get_tree().create_timer(time).timeout
+	var copy_tween_end : Tween = get_tree().create_tween()
+	copy_tween_end.set_trans(Tween.TRANS_BACK)
+	copy_tween_end.tween_method(copy_transform_set, 0.0, 1.0, .5)
+	
+func copy_transform_set(value : float):
+	copy_transform.set_amount(0, value)
+	copy_transform.set_amount(1, value)
+	
+	copy_transform.set_amount(1, clamp(copy_transform.get_amount(1), 0, 0.8))
 
 @export var kick_hitbox : Area3D
 func _on_kick_hitbox_body_entered(body: Node3D) -> void:

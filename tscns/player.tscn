@@ -59,7 +59,7 @@ hud = NodePath("HUD")
 player_body = NodePath("GR_subject_203")
 preselect_timer = NodePath("preselect_timer")
 
-[node name="GR_subject_203" parent="." unique_id=338692700 node_paths=PackedStringArray("camera_spine", "hud", "player_cam", "dialogue_cam_root", "gun_ray") instance=ExtResource("4_k0k4f")]
+[node name="GR_subject_203" parent="." unique_id=998480105 node_paths=PackedStringArray("camera_spine", "hud", "player_cam", "dialogue_cam_root", "gun_ray") instance=ExtResource("4_k0k4f")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 rotation_edit_mode = 0
 camera_spine = NodePath("../TwistPivot")
