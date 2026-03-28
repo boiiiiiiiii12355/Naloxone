@@ -54,12 +54,12 @@ stats = ExtResource("2_graem")
 view = NodePath("TwistPivot/view_offset/view")
 inventory = NodePath("Inventory")
 interact_ray = NodePath("TwistPivot/view_offset/view/interact_ray")
-pickup_hold_area = NodePath("TwistPivot/pickup_area")
+pickup_hold_area = NodePath("")
 hud = NodePath("HUD")
 player_body = NodePath("GR_subject_203")
 preselect_timer = NodePath("preselect_timer")
 
-[node name="GR_subject_203" parent="." unique_id=998480105 node_paths=PackedStringArray("camera_spine", "hud", "player_cam", "dialogue_cam_root", "gun_ray") instance=ExtResource("4_k0k4f")]
+[node name="GR_subject_203" parent="." unique_id=1551224101 node_paths=PackedStringArray("camera_spine", "hud", "player_cam", "dialogue_cam_root", "gun_ray") instance=ExtResource("4_k0k4f")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 rotation_edit_mode = 0
 camera_spine = NodePath("../TwistPivot")
@@ -90,34 +90,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.81455994, 0)
 shape = SubResource("BoxShape3D_jijlf")
 
 [node name="TwistPivot" type="Node3D" parent="." unique_id=1112278182]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.447349, -0.062200125)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.447349, -0.062200125)
 
 [node name="PitchPivot" type="SpringArm3D" parent="TwistPivot" unique_id=343688257]
-visible = false
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 spring_length = 8.0
 margin = 8.0
 
 [node name="equip_area" type="Node3D" parent="TwistPivot" unique_id=2043188993]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08422494, 0.0017762184, -0.37906247)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -0.08422497, 0.0017762184, 0.37906247)
 
 [node name="point_target" type="Node3D" parent="TwistPivot" unique_id=145324719]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.005331874, -1.6322323)
-
-[node name="pickup_area" type="Node3D" parent="TwistPivot" unique_id=328718831]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1010226, -0.9454944)
-rotation_edit_mode = 1
-
-[node name="point area" type="Node3D" parent="TwistPivot/pickup_area" unique_id=1423122609]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.9454944)
-rotation_edit_mode = 1
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -1.4269428e-07, 0.005331874, 1.6322323)
 
 [node name="view_offset" type="Node3D" parent="TwistPivot" unique_id=1176213470]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="view" type="Camera3D" parent="TwistPivot/view_offset" unique_id=1795726355]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.007323861, -0.065914094)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06778228, -0.031903695)
 current = true
 fov = 90.0
-near = 0.01
+near = 0.001
 script = ExtResource("6_hru13")
 
 [node name="interact_ray" type="RayCast3D" parent="TwistPivot/view_offset/view" unique_id=995186137]
@@ -137,7 +130,7 @@ collision_mask = 13
 transform = Transform3D(1.0000001, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0.39091623, -0.11432254, 0.7431146)
 
 [node name="dialogue_cam" type="Camera3D" parent="TwistPivot/view_offset/dialogue_cam_root" unique_id=1362784668]
-transform = Transform3D(0.9987629, -0.0010036408, 0.04971268, 0.00014911563, 0.9998522, 0.017190024, -0.04972264, -0.017161353, 0.9986156, 0, 0, 0)
+transform = Transform3D(0.99876297, -0.0010036428, 0.04971272, 0.00014911563, 0.99985224, 0.017190032, -0.049722638, -0.017161354, 0.9986156, 0, 0, 0)
 fov = 50.0
 
 [node name="Headbonk" type="ShapeCast3D" parent="." unique_id=1319775847]

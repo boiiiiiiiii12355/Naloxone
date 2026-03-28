@@ -9,8 +9,7 @@ func  _physics_process(delta: float) -> void:
 		stored_velocity()
 		#bunch of camera effects when moving
 		#var req_view_transform = owner.default_camera_pos + fall_cam_bob
-		#transform.origin = lerp(transform.origin, req_view_transform + camera_bob(step_time), change_magnitude)
-		#rotation.z = lerp(rotation.z, movement_tilt(), 0.07)
+		rotation.z = lerp(rotation.z, movement_tilt(), 0.07)
 			
 		if owner.velocity.length():
 			step_time += (delta * owner.stats.vel.length() * float(owner.stats.on_floor))

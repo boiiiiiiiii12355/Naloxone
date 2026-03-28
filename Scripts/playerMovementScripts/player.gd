@@ -25,7 +25,6 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	preselect_timer.timeout.connect(preselect_timer_end)
 	mySkin.set_sorting_offset(1)
-	pickup_point = pickup_hold_area.get_child(0)
 	#get_viewport().get_camera_3d()
 	default_camera_pos = view.transform.origin
 	camera = get_node(stats.camPath)

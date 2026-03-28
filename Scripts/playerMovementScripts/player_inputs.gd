@@ -53,7 +53,7 @@ func interact_check():
 		return null
 		
 func ViewAngles(delta):
-	camera.rotation_degrees.x = stats.xlook
+	camera.rotation_degrees.x = -stats.xlook
 	camera.rotation_degrees.y = stats.ylook
 
 var movement_local_dir = Vector2.ZERO

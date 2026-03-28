@@ -81,12 +81,18 @@ func free_lean():
 	animation_tree.set(free_lean_blend2d, free_lean_pos)
 	free_lean_pos = free_lean_pos.clamp(Vector2(-1, -1), Vector2(1,1))
 	
-	var dir : Vector2 = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
-	free_lean_pos += 0.05 *  dir
+	var dir : Vector2
+	dir.x = Input.get_axis("move_left", "move_right")
+	dir.y = Input.get_axis("move_back", "move_forward")
+	if dir:
+		free_lean_pos.x = lerp(free_lean_pos.x, dir.x, 0.05)
+		free_lean_pos.y = lerp(free_lean_pos.y, dir.y, 0.05)
+	print(dir)
 	
 func free_lean_cancel():
 	if animation_tree.get(free_lean_blend) == 1:
 		var free_lean_tween : Tween = get_tree().create_tween()
+		free_lean_tween.set_trans(Tween.TRANS_CUBIC)
 		free_lean_tween.tween_method(free_lean_set, 1.0, 0.0, 0.5)
 		await  free_lean_tween.finished
 		free_lean_pos = Vector2.ZERO
@@ -103,8 +109,8 @@ func player_dead():
 	
 var camera_influence : float = 50.0 #percentage
 func apply_camera_influence():
-	var head_angl = head_tracker.quaternion
-	camera_spine.quaternion.slerp(head_tracker.quaternion, camera_influence / 100)
+	var head_angl : Quaternion = head_tracker.quaternion
+	camera_spine.quaternion = head_angl
 	
 var recoil_rand = RandomNumberGenerator.new()
 func apply_recoil(amount : Vector3):
@@ -214,12 +220,12 @@ func play_arm_animation_from_time(name : String, time : float):
 @export var animationplayer : AnimationPlayer
 func chest_look_at_stop(time : float):
 	var copy_tween_start : Tween = get_tree().create_tween()
-	copy_tween_start.set_trans(Tween.TRANS_BACK)
-	copy_tween_start.tween_method(copy_transform_set, 1.0, 0.0, .5)
+	copy_tween_start.set_trans(Tween.TRANS_CUBIC)
+	copy_tween_start.tween_method(copy_transform_set, 1.0, 0.1, 1)
 	await get_tree().create_timer(time).timeout
 	var copy_tween_end : Tween = get_tree().create_tween()
-	copy_tween_end.set_trans(Tween.TRANS_BACK)
-	copy_tween_end.tween_method(copy_transform_set, 0.0, 1.0, .5)
+	copy_tween_end.set_trans(Tween.TRANS_CUBIC)
+	copy_tween_end.tween_method(copy_transform_set, 0.1, 1.0, 1)
 	
 func copy_transform_set(value : float):
 	copy_transform.set_amount(0, value)
